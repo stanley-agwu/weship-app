@@ -4,7 +4,7 @@ import colors from 'colors';
 
 import connectDB from './db/db';
 
-import goalsRoutes from './routes';
+import deliveryRoutes from './routes';
 import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
@@ -22,7 +22,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 // routes
-app.use('/api/goals', goalsRoutes);
+app.use('/api/customers', deliveryRoutes);
 
 // connect db
 connectDB();

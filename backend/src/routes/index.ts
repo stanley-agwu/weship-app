@@ -1,16 +1,16 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 
-import { createGoal,
-          deleteGoal,
-          getGoal,
-          getGoals,
-          updateGoal
-        } from '../controllers/goalsControllers';
+import { createDelivery,
+          deleteDelivery,
+          getDelivery,
+          getDeliveryList,
+          updateDelivery
+        } from '../controllers/deliveryControllers';
 
 const router = express.Router();
 
-router.route('/').get(getGoals).post(createGoal);
+router.route('/').get(getDeliveryList).post(createDelivery);
 
-router.route('/:id').get(getGoal).delete(deleteGoal).put(updateGoal);
+router.route('/:id').get(getDelivery).delete(deleteDelivery).put(updateDelivery);
 
 export default router;
