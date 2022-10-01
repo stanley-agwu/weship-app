@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import * as dotenv from 'dotenv';
+import connectDB from './db/db';
 
 import goalsRoutes from './routes';
 import { errorHandler } from './middlewares/errorHandler';
@@ -20,5 +21,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // routes
 app.use('/api/goals', goalsRoutes);
 
+// connect db
+connectDB();
+
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`server started on port ${PORT}`))
+app.listen(PORT, () => console.log(`server started on port ${PORT}`));
