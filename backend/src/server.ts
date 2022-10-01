@@ -22,7 +22,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 // routes
-app.use('/api/customers', deliveryRoutes);
+app.use('/api/deliveries', deliveryRoutes);
 
 // connect db
 connectDB();

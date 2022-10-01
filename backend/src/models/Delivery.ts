@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const CustomerSchema = new mongoose.Schema({
+import { Delivery } from '../types';
+
+const DeliverySchema = new mongoose.Schema<Delivery>({
   customerName: {
     type: String,
     required: true,
@@ -13,12 +15,6 @@ const CustomerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  deliveryName: {
-    type: String,
-  },
-  deliveryWeight: {
-    type: String,
-  },
   longitude: {
     type: Number,
     required: true,
@@ -29,4 +25,4 @@ const CustomerSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-export default mongoose.model('Customer', CustomerSchema);
+export default mongoose.model<Delivery>('Delivery', DeliverySchema);
