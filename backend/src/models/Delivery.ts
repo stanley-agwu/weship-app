@@ -3,15 +3,24 @@ import mongoose from 'mongoose';
 import { Delivery } from '../types';
 
 const DeliverySchema = new mongoose.Schema<Delivery>({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   customerName: {
     type: String,
     required: true,
   },
-  address: {
+  wareHouseaddress: {
     type: String,
     required: true
   },
   deliveryDate: {
+    type: String,
+    required: true,
+  },
+  deliveryAddress: {
     type: String,
     required: true,
   },
