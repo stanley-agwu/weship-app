@@ -4,7 +4,8 @@ import colors from 'colors';
 
 import connectDB from './db/db';
 
-import deliveryRoutes from './routes';
+import deliveryRoutes from './routes/delivery';
+import userRoutes from './routes/user';
 import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
@@ -23,6 +24,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // routes
 app.use('/api/deliveries', deliveryRoutes);
+app.use('/api/users', userRoutes);
 
 // connect db
 connectDB();
