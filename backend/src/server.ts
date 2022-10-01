@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import * as dotenv from 'dotenv';
+import colors from 'colors';
+
 import connectDB from './db/db';
 
 import goalsRoutes from './routes';
@@ -7,6 +9,7 @@ import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 dotenv.config({ path: './config/config.env'});
+colors.enable();
 
 // middleware
 app.use(express.json());
@@ -25,4 +28,4 @@ app.use('/api/goals', goalsRoutes);
 connectDB();
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`server started on port ${PORT}`.magenta));
