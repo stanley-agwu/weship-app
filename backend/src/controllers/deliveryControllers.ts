@@ -27,7 +27,19 @@ export const getDelivery = async (req: Request, res: Response) => {
 };
 
 // create a delivery
-export const createDelivery = asyncHandler(async (req: Request, res: Response) => {
+export const createDelivery = async (req: Request, res: Response) => {
+  const { customerName, deliveryDate, warehouseAddress, deliveryAddress } = req.body;
+  const fields = [];
+
+  if (!customerName) fields.push(customerName);
+  if (!deliveryDate) fields.push(deliveryDate);
+  if (!warehouseAddress) fields.push(warehouseAddress);
+  if (!deliveryAddress) fields.push(deliveryAddress);
+
+  if (Boolean(fields.length)) {
+    return res.status(400).json({ error: 'Please fill all fields', fields })
+  }
+  
   try {
     const delivery = await Delivery.create(req.body);
     res.status(200).json({ delivery });
@@ -36,7 +48,7 @@ export const createDelivery = asyncHandler(async (req: Request, res: Response) =
       res.status(500).json({ error: error.message})
     }
   }
-});
+};
 
 // delete a delivery
 export const deleteDelivery = async (req: Request, res: Response) => {

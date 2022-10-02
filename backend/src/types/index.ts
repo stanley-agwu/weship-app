@@ -1,11 +1,9 @@
 export type Delivery = {
   user?: string,
   customerName: string,
-  wareHouseaddress: string,
+  warehouseAddress: string,
   deliveryDate: string,
   deliveryAddress: string,
-  longitude: number,
-  latitude: number,
 }
 
 export type User = {
