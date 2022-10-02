@@ -11,3 +11,7 @@ export type User = {
   email: string,
   password: string,
 }
+
+export interface IUser {
+  user: User;
+}
