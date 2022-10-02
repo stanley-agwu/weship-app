@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { Delivery } from '../types';
 
 const DeliverySchema = new mongoose.Schema<Delivery>({
-  user: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',

@@ -1,5 +1,5 @@
 export type Delivery = {
-  user?: string,
+  user_id?: string,
   customerName: string,
   warehouseAddress: string,
   deliveryDate: string,
@@ -17,4 +17,8 @@ export type UIUser = {
 
 export type User = UIUser & {
   password: string,
+}
+
+export interface IUserPayload {
+  _id: string;
 }
