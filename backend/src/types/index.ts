@@ -6,12 +6,15 @@ export type Delivery = {
   deliveryAddress: string,
 }
 
-export type User = {
+export type UIUser = {
+  _id: string,
   username: string,
   email: string,
-  password: string,
+  createdAt: string,
+  updatedAt: string,
+  token: string,
 }
 
-export interface IUser {
-  user: User;
+export type User = UIUser & {
+  password: string,
 }
