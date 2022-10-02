@@ -12,7 +12,7 @@ const app = express();
 dotenv.config({ path: './config/config.env'});
 colors.enable();
 
-// middleware
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(errorHandler);

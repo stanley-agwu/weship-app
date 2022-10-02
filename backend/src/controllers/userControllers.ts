@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -75,10 +74,17 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 // get user
-export const getLoggedInUserData = asyncHandler(async (req: Request, res: Response) => {
-  // const user = User
-  res.status(200).json({ message: 'get user data' });
-});
+export const getLoggedInUserData = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.body.user_id).select('-password');
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+};
 
 // generate JWT token function
 const createToken = (_id: string) => {

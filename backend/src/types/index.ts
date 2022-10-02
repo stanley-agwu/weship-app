@@ -12,7 +12,7 @@ export type UIUser = {
   email: string,
   createdAt: string,
   updatedAt: string,
-  token: string,
+  token?: string,
 }
 
 export type User = UIUser & {
