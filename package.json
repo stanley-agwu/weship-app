@@ -4,9 +4,10 @@
   "description": "App for handling delivery globally",
   "main": "server.ts",
   "scripts": {
-    "start": "node dist/server",
-    "dev": "nodemon src/server",
-    "build": "tsc -p ."
+    "start": "node backend/dist/server",
+    "dev": "nodemon backend/src/server",
+    "build": "tsc -p .",
+    "client": "npm start --prefix frontend"
   },
   "author": "stanley agwu",
   "license": "MIT",
