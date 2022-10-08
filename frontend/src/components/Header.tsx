@@ -15,12 +15,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import { Link } from 'react-router-dom';
+
+import './styles.scss';
 
 const pages = ['Dashboard', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const actions = [ { type: 'Register', icon: HowToRegIcon },
-                  { type: 'Login', icon: PersonAddIcon },
-                  { type: 'Logout', icon: LogoutIcon }];
+const actions = [ { type: 'Register', icon: HowToRegIcon, path: "/register" },
+                  { type: 'Login', icon: PersonAddIcon, path: "/login" },
+                  { type: 'Logout', icon: LogoutIcon, path: "/" }];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -132,10 +135,12 @@ const Header = () => {
           </Box>
           <Box sx={{ display: 'flex', mr: 3}}>
             {actions.map((action) => (
-              <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
-                <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
-                <action.icon />
-              </Box>
+              <Link to={action.path} className="nav-items">
+                <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
+                  <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
+                  <action.icon />
+                </Box>
+              </Link>
             ))}
           </Box>
 

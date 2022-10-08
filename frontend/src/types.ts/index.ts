@@ -6,3 +6,9 @@ export interface RegisterFormData {
   showPassword: boolean;
   showConfirmPassword: boolean;
 }
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+  showPassword: boolean;
+}
