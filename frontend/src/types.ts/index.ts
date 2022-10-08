@@ -22,8 +22,8 @@ export type LoggedInUser = {
   token?: string,
 }
 
-export interface State {
-  user: LoggedInUser;
+export interface IState {
+  user: LoggedInUser | null;
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;
