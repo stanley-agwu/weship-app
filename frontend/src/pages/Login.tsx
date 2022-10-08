@@ -37,10 +37,14 @@ const Login = () => {
     e.preventDefault();
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  }
+
   return (
     <div className="form-group">
       <h2>Log In</h2>
-      <form className="form-data">
+      <form className="form-data" onSubmit={handleSubmit}>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
           <InputLabel htmlFor="email">email</InputLabel>
           <OutlinedInput
