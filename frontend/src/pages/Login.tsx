@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,10 +7,17 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { LoginFormData } from '../types.ts';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { login, reset } from '../features/auth/authSlice';
 
 import './styles.scss';
-import { LoginFormData } from '../types.ts';
+import { getAuthState } from '../features/auth/getters';
+import Spinner from '../components/Spinner';
+
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -18,12 +25,22 @@ const Login = () => {
     password: '',
     showPassword: false,
   })
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { user, isSuccess, isLoading, isError, errorMessage } = useAppSelector(getAuthState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState: LoginFormData) => ({
       ...prevState, [e.target.name]: e.target.value,
     }))
   }
+
+  useEffect(() => {
+    if (isError) toast.error(errorMessage);
+    else if (isSuccess || user)  navigate('/');
+    dispatch(reset());
+  }, [user, isSuccess, isError, errorMessage, navigate, dispatch]);
 
   const { email, password, showPassword } = formData;
 
@@ -39,7 +56,12 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const userData = { email, password };
+    dispatch(login(userData));
   }
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="form-group">
@@ -80,7 +102,7 @@ const Login = () => {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-          <Button variant="contained" className="submit">Login</Button>
+          <Button type="submit" variant="contained" className="submit">Login</Button>
         </FormControl>
         <div className="signin-section">
           <span>No account?</span>
