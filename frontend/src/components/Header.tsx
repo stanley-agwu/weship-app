@@ -22,7 +22,9 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { reset, logout } from '../features/auth/authSlice';
 import { getAuthState } from '../features/auth/getters';
 
-const pages = ['Dashboard', 'Pricing', 'Blog'];
+const pages = [{ name: 'Dashboard', path: '/' },
+               { name: 'Pricing', path: '#' }, 
+               { name: 'Blog', path: '#' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -113,8 +115,8 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={() => navigate(page.path)}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -141,11 +143,11 @@ const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => navigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
