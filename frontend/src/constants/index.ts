@@ -1,3 +1,4 @@
 export const ENDPOINTS = {
-  users: '/api/users/'
+  register: '/api/users/',
+  login: '/api/users/login'
 }

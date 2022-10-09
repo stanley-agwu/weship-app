@@ -36,6 +36,11 @@ export interface IRegisterUser {
   password: string;
 }
 
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 export type ErrorType = {
   response: {
     data: { 

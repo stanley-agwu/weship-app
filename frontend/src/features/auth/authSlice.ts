@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorType, LoggedInUser, IRegisterUser, IState } from '../../types.ts';
+import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IState } from '../../types.ts';
 import authService from './authService';
 
 // Get user from localStorage
@@ -18,6 +18,20 @@ export const register = createAsyncThunk('auth/register',
   async (user: IRegisterUser, thunkAPI) => {
     try {
       return await authService.register(user);
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message
+      else if (typeof error === 'string') message = error.toString();
+      else message = (error: ErrorType) => error.response && error.response.data && error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  })
+
+// login user
+export const login = createAsyncThunk('auth/login',
+  async (user: ILoginUser, thunkAPI) => {
+    try {
+      return await authService.login(user);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message
@@ -52,6 +66,23 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.isError = true;
+        typeof action.payload === 'string'
+          ? state.errorMessage = action.payload
+          : state.errorMessage = JSON.stringify(action.payload);
+        state.user = null;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.isError = true;
