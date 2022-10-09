@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,11 +7,16 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { RegisterFormData } from '../types.ts';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { register, reset } from '../features/auth/authSlice';
 
 import './styles.scss';
+import { getAuthState } from '../features/auth/getters';
+import Spinner from '../components/Spinner';
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
@@ -21,13 +26,23 @@ const Register = () => {
     comfirmPassword: '',
     showPassword: false,
     showConfirmPassword: false,
-  })
+  });
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { user, isSuccess, isLoading, isError, errorMessage } = useAppSelector(getAuthState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState: RegisterFormData) => ({
       ...prevState, [e.target.name]: e.target.value,
     }))
   }
+
+  useEffect(() => {
+    if (isError) toast.error(errorMessage);
+    else if (isSuccess || user)  navigate('/');
+    dispatch(reset);
+  }, [user, isSuccess, isError, errorMessage, navigate, dispatch]);
 
   const { username,
           email,
@@ -52,10 +67,23 @@ const Register = () => {
     e.preventDefault();
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (password !== comfirmPassword) {
+      toast.error('Passwords do not match');
+    } else {
+      const userData = { username, email, password };
+      dispatch(register(userData));
+    }
+  }
+
+  if (isLoading) return <Spinner />;
+
   return (
     <div className="form-group">
       <h2>Register</h2>
-      <form className="form-data">
+      <form className="form-data" onSubmit={handleSubmit}>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
           <InputLabel htmlFor="username">Username</InputLabel>
           <OutlinedInput
@@ -125,7 +153,7 @@ const Register = () => {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-          <Button variant="contained" className="submit">Sign up</Button>
+          <Button type="submit" variant="contained" className="submit">Sign up</Button>
         </FormControl>
         <div className="signup-section">
           <span>Already have an account?</span>

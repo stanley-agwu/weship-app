@@ -135,7 +135,7 @@ const Header = () => {
           </Box>
           <Box sx={{ display: 'flex', mr: 3}}>
             {actions.map((action) => (
-              <Link to={action.path} className="nav-items">
+              <Link to={action.path} className="nav-items" key={action.type}>
                 <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
                   <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
                   <action.icon />
@@ -147,7 +147,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu

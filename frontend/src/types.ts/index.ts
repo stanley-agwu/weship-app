@@ -43,3 +43,7 @@ export type ErrorType = {
     }
   }
 }
+
+export interface IRootState {
+  auth: IState;
+}

@@ -4,13 +4,18 @@ import { IRegisterUser } from '../../types.ts';
 
 // register user
 const register = async (userData: IRegisterUser) => {
-  const response = await axios.post(ENDPOINTS.users, userData);
+  const response = await axios.post(`${ENDPOINTS.users}`, userData, {
+    headers: { 
+      'Content-Type': 'application/json',
+    },
+   });
+   const results = response.data;
 
-  if (response.data) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  if (results) {
+    localStorage.setItem('user', JSON.stringify(results));
   }
 
-  return response.data;
+  return results;
 }
 
 const authService = {
