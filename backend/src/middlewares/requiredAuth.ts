@@ -17,6 +17,7 @@ export const requiredAuth = async (req: Request, res: Response, next: NextFuncti
     try {
       const user: UIUser | null = await User.findById(_id).select('-password');
       req.body.user_id = user?._id;
+      req.body.user = user;
       next();
     } catch (error) {
       console.error(error);

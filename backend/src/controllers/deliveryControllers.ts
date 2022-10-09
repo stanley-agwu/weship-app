@@ -22,8 +22,7 @@ export const getDelivery = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
-
-  const user: UserType | null = await User.findById(req.body.user_id);
+  const { user } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
@@ -72,7 +71,7 @@ export const deleteDelivery = async (req: Request, res: Response) => {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
 
-  const user: UserType | null = await User.findById(req.body.user_id);
+  const { user } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
@@ -105,7 +104,7 @@ export const updateDelivery = async (req: Request, res: Response) => {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
 
-  const user: UserType | null = await User.findById(req.body.user_id);
+  const { user } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
