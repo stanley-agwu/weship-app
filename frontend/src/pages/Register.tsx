@@ -41,7 +41,7 @@ const Register = () => {
   useEffect(() => {
     if (isError) toast.error(errorMessage);
     else if (isSuccess || user)  navigate('/');
-    dispatch(reset);
+    dispatch(reset());
   }, [user, isSuccess, isError, errorMessage, navigate, dispatch]);
 
   const { username,

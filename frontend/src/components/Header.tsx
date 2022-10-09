@@ -15,19 +15,29 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.scss';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { reset, logout } from '../features/auth/authSlice';
+import { getAuthState } from '../features/auth/getters';
 
 const pages = ['Dashboard', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const actions = [ { type: 'Register', icon: HowToRegIcon, path: "/register" },
-                  { type: 'Login', icon: PersonAddIcon, path: "/login" },
-                  { type: 'Logout', icon: LogoutIcon, path: "/" }];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useAppSelector(getAuthState);
+  const hasUser = user && Boolean(Object.keys(user).length);
+
+  const actions = [ 
+    { type: 'Register', icon: HowToRegIcon, path: "/register", display: !hasUser },
+    { type: 'Login', icon: PersonAddIcon, path: "/login", display: !hasUser },
+    { type: 'Logout', icon: LogoutIcon, path: "/", display: hasUser }];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -43,6 +53,12 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const onLogout =() => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
+  }
 
   return (
     <AppBar position="static">
@@ -135,12 +151,18 @@ const Header = () => {
           </Box>
           <Box sx={{ display: 'flex', mr: 3}}>
             {actions.map((action) => (
-              <Link to={action.path} className="nav-items" key={action.type}>
-                <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
-                  <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
-                  <action.icon />
-                </Box>
-              </Link>
+              action.display && (
+                <Link
+                  to={action.path}
+                  className="nav-items"
+                  key={action.type}
+                  onClick={() => action.type === 'Logout' ? onLogout() : null}>
+                  <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
+                    <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
+                    <action.icon />
+                  </Box>
+                </Link>
+              )
             ))}
           </Box>
 
