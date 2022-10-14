@@ -12,7 +12,11 @@ const register = async (userData: IRegisterUser) => {
    const results = response.data;
 
   if (results) {
-    localStorage.setItem('user', JSON.stringify(results));
+    const userData = {
+      id: results.user._id,
+      token: results.user.token
+    };
+    localStorage.setItem('user', JSON.stringify(userData));
   }
 
   return results;
@@ -28,7 +32,11 @@ const login = async (userData: ILoginUser) => {
    const results = response.data;
 
   if (results) {
-    localStorage.setItem('user', JSON.stringify(results));
+    const userData = {
+      id: results.user._id,
+      token: results.user.token
+    };
+    localStorage.setItem('user', JSON.stringify(userData));
   }
 
   return results;
