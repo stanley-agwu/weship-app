@@ -22,7 +22,8 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { reset, logout } from '../features/auth/authSlice';
 import { getAuthState } from '../features/auth/getters';
 
-const pages = [{ name: 'Dashboard', path: '/' },
+const pages = [{ name: 'Home', path: '/home' },
+               { name: 'Dashboard', path: '/' },
                { name: 'Pricing', path: '#' }, 
                { name: 'Blog', path: '#' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
