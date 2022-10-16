@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { LoginFormData } from '../types.ts';
+import { ILoginFormData } from '../types.ts';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { login, reset } from '../features/auth/authSlice';
 
@@ -20,7 +20,7 @@ import Spinner from '../components/Spinner';
 
 
 const Login = () => {
-  const [formData, setFormData] = useState<LoginFormData>({
+  const [formData, setFormData] = useState<ILoginFormData>({
     email: '',
     password: '',
     showPassword: false,
@@ -31,7 +31,7 @@ const Login = () => {
   const { user, isSuccess, isLoading, isError, errorMessage } = useAppSelector(getAuthState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState: LoginFormData) => ({
+    setFormData((prevState: ILoginFormData) => ({
       ...prevState, [e.target.name]: e.target.value,
     }))
   }
@@ -45,7 +45,7 @@ const Login = () => {
   const { email, password, showPassword } = formData;
 
   const handleClickShowPassword = () => {
-    setFormData((prevState: LoginFormData) => ({
+    setFormData((prevState: ILoginFormData) => ({
       ...prevState, showPassword: !formData.showPassword,
     }))
   }

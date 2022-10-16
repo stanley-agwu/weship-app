@@ -56,15 +56,25 @@
   }
 
   .content {
-    margin: 1rem auto;
+    margin: 1rem auto 0;
     padding: 1rem 4rem;
+  }
+  .header {
+    padding: 0 4rem;
+    font-size: 1.75rem;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .content-header {
+    padding: 0;
   }
 
   .articles {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0 4rem;
+    margin-bottom: 4rem;
     padding: 1rem 0 2rem;
     .map-cards {
       display: inline-flex;
@@ -75,5 +85,27 @@
         margin: 1rem;
       }
     }
+  }
+}
+
+.dashboard {
+  margin: 4rem 0;
+  display: flex;
+  width: 100%;
+  .dashboard-display {
+    width: 60%;
+  }
+
+  .form-data {
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto 0;
+    background: #FFFFFF;
+  }
+
+  .submit {
+    height: 3.125rem;
   }
 }

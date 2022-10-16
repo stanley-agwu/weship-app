@@ -7,7 +7,7 @@ export interface RegisterFormData {
   showConfirmPassword: boolean;
 }
 
-export interface LoginFormData {
+export interface ILoginFormData {
   email: string;
   password: string;
   showPassword: boolean;
@@ -50,4 +50,10 @@ export type ErrorType = {
 }
 export interface IRootState {
   auth: IState;
+}
+
+export interface IDeliveryFormData {
+  customerName: string;
+  warehouseAddress: string;
+  deliveryAddress: string;
 }

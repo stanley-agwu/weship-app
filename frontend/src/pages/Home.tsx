@@ -7,10 +7,11 @@ const Home = () => {
     <main className="main">
       <section className="banner"></section>
       <section className="content">
-        <h2>{MESSAGES.h1}</h2>
+        <h2 className="header content-header">{MESSAGES.h1}</h2>
         <p>{MESSAGES.m1}</p>
         <hr />
       </section>
+      <h2 className="header">{MESSAGES.h2}</h2>
       <section className="articles">
         <article className="map-cards">
           <div className="map-card">
