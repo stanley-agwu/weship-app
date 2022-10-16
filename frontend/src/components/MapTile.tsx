@@ -3,14 +3,6 @@ import Map, {Marker} from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      MAPBOX_ACCESS_TOKEN: string;
-    }
-  }
-}
-
 const MapTile = () => {
   const [viewState, setViewState] = React.useState({
     latitude: 37.8,

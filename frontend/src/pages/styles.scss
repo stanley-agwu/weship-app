@@ -46,3 +46,34 @@
     }
   }
 }
+
+.main {
+  .banner {
+    width: 100%;
+    height: 800px;
+    background-image: url('../assets/louis-droege-unsplash.jpg');
+    background-size: cover;
+  }
+
+  .content {
+    margin: 1rem auto;
+    padding: 1rem 4rem;
+  }
+
+  .articles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 4rem;
+    padding: 1rem 0 2rem;
+    .map-cards {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      .map-card {
+        margin: 1rem;
+      }
+    }
+  }
+}
