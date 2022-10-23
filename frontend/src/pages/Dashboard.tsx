@@ -9,9 +9,10 @@ import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 
 import './styles.scss';
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
 import { IDeliveryFormData } from '../types.ts';
+import { createDelivery } from '../features/delivery/deliverySlice';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -23,11 +24,12 @@ const initialState: IDeliveryFormData = {
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector(getAuthState);
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(initialState);
-  const [warehouseLat, setWarehouseLat] = useState(0);
-  const [warehouseLng, setWarehouseLng] = useState(0);
-  const [deliveryLat, setDeliveryLat] = useState(0);
-  const [deliveryLng, setDeliveryLng] = useState(0);
+  const [warehouseAddressLat, setWarehouseAddressLat] = useState(0);
+  const [warehouseAddressLng, setWarehouseAddressLng] = useState(0);
+  const [deliveryAddressLat, setDeliveryAddressLat] = useState(0);
+  const [deliveryAddressLng, setDeliveryAddressLng] = useState(0);
 
   const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = formData;
 
@@ -36,16 +38,14 @@ const Dashboard: React.FC = () => {
   const fetchWareHouseCoords = async () => {
     const wareHouseResponse = await fetch(wareHouseBaseUrl);
     const wareHouseResults = await wareHouseResponse.json();
-    console.log(wareHouseResults);
-    setWarehouseLat(wareHouseResults[0]?.lat);
-    setWarehouseLng(wareHouseResults[0]?.lon);
+    setWarehouseAddressLat(wareHouseResults[0]?.lat);
+    setWarehouseAddressLng(wareHouseResults[0]?.lon);
   };
   const fetchDeliveryAddressCoords = async () => {
     const deliveryResponse = await fetch(deliveryBaseUrl);
     const deliveryResults = await deliveryResponse.json();
-    console.log(deliveryResults);
-    setDeliveryLat(deliveryResults[0]?.lat);
-    setDeliveryLng(deliveryResults[0]?.lon);
+    setDeliveryAddressLat(deliveryResults[0]?.lat);
+    setDeliveryAddressLng(deliveryResults[0]?.lon);
   };
 
 
@@ -57,6 +57,15 @@ const Dashboard: React.FC = () => {
       fetchDeliveryAddressCoords();
     }
     setFormData(initialState);
+    const deliveryData = {
+      customerName,
+      deliveryDate,
+      warehouseAddressLat,
+      warehouseAddressLng,
+      deliveryAddressLat,
+      deliveryAddressLng
+    }
+    dispatch(createDelivery(deliveryData, user?.token));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

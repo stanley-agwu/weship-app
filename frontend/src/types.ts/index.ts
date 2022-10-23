@@ -58,3 +58,28 @@ export interface IDeliveryFormData {
   deliveryDate: string;
   deliveryAddress: string;
 }
+
+export type Delivery = {
+  customerName: string;
+  warehouseLat: string;
+  warehouseLng: string;
+  deliveryDate: string;
+  deliveryAddressLat: string;
+  deliveryAddressLng: string;
+}
+
+export interface IDelivery {
+  deliveries: Delivery[],
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage: string;
+}
+
+export type State = {
+  auth: {
+    user: {
+      token: string;
+    }
+  }
+}
