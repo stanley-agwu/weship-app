@@ -55,5 +55,6 @@ export interface IRootState {
 export interface IDeliveryFormData {
   customerName: string;
   warehouseAddress: string;
+  deliveryDate: string;
   deliveryAddress: string;
 }
