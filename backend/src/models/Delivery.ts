@@ -12,7 +12,11 @@ const DeliverySchema = new mongoose.Schema<Delivery>({
     type: String,
     required: true,
   },
-  warehouseAddress: {
+  warehouseAddressLat: {
+    type: String,
+    required: true
+  },
+  warehouseAddressLng: {
     type: String,
     required: true
   },
@@ -20,7 +24,11 @@ const DeliverySchema = new mongoose.Schema<Delivery>({
     type: String,
     required: true,
   },
-  deliveryAddress: {
+  deliveryAddressLat: {
+    type: String,
+    required: true,
+  },
+  deliveryAddressLng: {
     type: String,
     required: true,
   },

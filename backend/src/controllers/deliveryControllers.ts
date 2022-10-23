@@ -3,8 +3,6 @@ import  asyncHandler from 'express-async-handler';
 import mongoose from 'mongoose';
 
 import Delivery from '../models/Delivery';
-import User from '../models/User';
-import { User as UserType } from '../types';
 
 
 
@@ -41,13 +39,13 @@ export const getDelivery = async (req: Request, res: Response) => {
 
 // create a delivery
 export const createDelivery = async (req: Request, res: Response) => {
-  const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = req.body;
+  const { customerName, warehouseAddressLat, warehouseAddressLng, deliveryDate, deliveryAddressLat, deliveryAddressLng } = req.body;
   const fields = [];
 
-  if (!customerName) fields.push(customerName);
-  if (!deliveryDate) fields.push(deliveryDate);
-  if (!warehouseAddress) fields.push(warehouseAddress);
-  if (!deliveryAddress) fields.push(deliveryAddress);
+  if (!customerName) fields.push('customerName');
+  if (!deliveryDate) fields.push('deliveryDate');
+  if (!warehouseAddressLat || !warehouseAddressLng) fields.push('warehouseAddress');
+  if (!deliveryAddressLat || !deliveryAddressLng) fields.push('deliveryAddress');
 
   if (Boolean(fields.length)) {
     return res.status(400).json({ error: 'Please fill all fields', fields })
