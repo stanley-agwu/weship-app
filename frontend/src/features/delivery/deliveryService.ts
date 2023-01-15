@@ -13,8 +13,20 @@ const createDelivery = async (deliveryData: Delivery, token: string) => {
   return response.data;
 };
 
+// get user deliveries
+const getDeliveries = async (token: string) => {
+  const response = await axios.get(`${ENDPOINTS.deliveries}`, {
+    headers: { 
+      Authorization: `Bearer ${token}`,
+    }
+  });
+
+  return response.data;
+};
+
 const deliveryService = {
   createDelivery,
+  getDeliveries,
 };
 
 export default deliveryService;

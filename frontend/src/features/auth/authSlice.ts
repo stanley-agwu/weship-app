@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IState } from '../../types.ts';
+import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IAuthState } from '../../types.ts';
 import authService from './authService';
 
 // Get user from localStorage
 const user: LoggedInUser = JSON.parse(localStorage.getItem('user')!);
 
-const initialState: IState = {
+const initialState: IAuthState = {
   user: user || null,
   isSuccess: false,
   isLoading: false,
