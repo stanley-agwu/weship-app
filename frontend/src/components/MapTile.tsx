@@ -1,24 +1,29 @@
+// @ts-nocheck
 import React from 'react';
-import Map, {Marker} from 'react-map-gl';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { MapTileProps } from '../types.ts';
+import './styles.scss';
+import 'leaflet/dist/leaflet.css';
 
-const MapTile = () => {
-  const [viewState, setViewState] = React.useState({
-    latitude: 37.8,
-    longitude: -122.4,
-    zoom: 14
-  });
-
+const MapTile = ({ lat, lng}: MapTileProps) => {
+  const markerIcon = new L.Icon({
+    iconUrl: require('../assets/map-marker.png'),
+    iconSize: [35, 35],
+  })
   return (
-    <Map
-      {...viewState}
-      onMove={evt => setViewState(evt.viewState)}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
-      mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-    >
-      <Marker longitude={-122.4} latitude={37.8} color="red" />
-    </Map>
+  <MapContainer className='map-tile-container' center={[lat, lng]} zoom={13}  scrollWheelZoom={false}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={[lat, lng]} icon={markerIcon}>
+      <Popup>
+        Warehouse location <br /> For Delivery.
+      </Popup>
+    </Marker>
+  </MapContainer>
   );
 }
 

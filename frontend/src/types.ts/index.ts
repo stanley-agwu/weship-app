@@ -22,8 +22,15 @@ export type LoggedInUser = {
   token?: string,
 }
 
-export interface IState {
+export interface IAuthState {
   user: LoggedInUser | null;
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage: string;
+}
+export interface IDeliveryState {
+  deliveries: Delivery[],
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;
@@ -49,7 +56,8 @@ export type ErrorType = {
   }
 }
 export interface IRootState {
-  auth: IState;
+  auth: IAuthState;
+  delivery: IDeliveryState,
 }
 
 export interface IDeliveryFormData {
@@ -61,19 +69,11 @@ export interface IDeliveryFormData {
 
 export type Delivery = {
   customerName: string;
-  warehouseLat: string;
-  warehouseLng: string;
+  warehouseAddressLat: number;
+  warehouseAddressLng: number;
   deliveryDate: string;
-  deliveryAddressLat: string;
-  deliveryAddressLng: string;
-}
-
-export interface IDelivery {
-  deliveries: Delivery[],
-  isSuccess: boolean;
-  isLoading: boolean;
-  isError: boolean;
-  errorMessage: string;
+  deliveryAddressLat: number;
+  deliveryAddressLng: number;
 }
 
 export type State = {
@@ -82,4 +82,13 @@ export type State = {
       token: string;
     }
   }
+}
+
+export type MapTileProps = {
+  lat: number;
+  lng: number;
+}
+
+export type LocationProps = {
+  deliveryData: Delivery
 }

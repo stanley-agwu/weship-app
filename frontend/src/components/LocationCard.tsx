@@ -1,16 +1,17 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { Delivery, LocationProps } from '../types.ts';
 import MapTile from './MapTile';
 
 import './styles.scss';
 
-const LocationCard = () => {
+const LocationCard = ({ deliveryData }: LocationProps) => {
+  const { warehouseAddressLat, warehouseAddressLng } = deliveryData;
   return (
     <Card className='location-card'>
       <div className='map-tile'>
-        <MapTile />
+        <MapTile lat={ warehouseAddressLat } lng={ warehouseAddressLng }/>
       </div>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

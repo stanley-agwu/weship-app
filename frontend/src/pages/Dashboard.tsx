@@ -12,7 +12,10 @@ import './styles.scss';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
 import { IDeliveryFormData } from '../types.ts';
-import { createDelivery } from '../features/delivery/deliverySlice';
+import { createDelivery, reset, getDeliveries } from '../features/delivery/deliverySlice';
+import { getDeliveryState } from '../features/delivery/getters';
+import Spinner from '../components/Spinner';
+import LocationCard from '../components/LocationCard';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -23,13 +26,15 @@ const initialState: IDeliveryFormData = {
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAppSelector(getAuthState);
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(initialState);
   const [warehouseAddressLat, setWarehouseAddressLat] = useState(0);
   const [warehouseAddressLng, setWarehouseAddressLng] = useState(0);
   const [deliveryAddressLat, setDeliveryAddressLat] = useState(0);
   const [deliveryAddressLng, setDeliveryAddressLng] = useState(0);
+
+  const { user } = useAppSelector(getAuthState);
+  const { deliveries, isLoading, isSuccess, isError, errorMessage } = useAppSelector(getDeliveryState);
 
   const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = formData;
 
@@ -57,7 +62,7 @@ const Dashboard: React.FC = () => {
       fetchDeliveryAddressCoords();
     }
     setFormData(initialState);
-    const deliveryData = {
+    const deliveryData: Delivery = {
       customerName,
       deliveryDate,
       warehouseAddressLat,
@@ -75,15 +80,24 @@ const Dashboard: React.FC = () => {
   }
 
   useEffect(() => {
+    if (isError) {
+      console.log(errorMessage);
+    }
     if (!user) {
       navigate('/login');
-    }
-  }, [navigate, user]);
+    };
+    dispatch(getDeliveries());
+    // return () => dispatch(reset());
+  }, [dispatch, errorMessage, isError, navigate, user]);
+
+  if (isLoading) return <Spinner />
 
   return (
     <div className="dashboard">
       <section className="dashboard-display">
-
+        {Boolean(deliveries.length) && deliveries.map((delivery) => (
+          <LocationCard delivery={delivery} />
+        ))}
       </section>
       <section>
         <div className="form-group">
