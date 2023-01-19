@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import './styles.scss';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
-import { IDeliveryFormData } from '../types.ts';
+import { IDeliveryFormData, LocationProps } from '../types.ts';
 import { createDelivery, reset, getDeliveries } from '../features/delivery/deliverySlice';
 import { getDeliveryState } from '../features/delivery/getters';
 import Spinner from '../components/Spinner';
@@ -38,19 +38,28 @@ const Dashboard: React.FC = () => {
 
   const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = formData;
 
-  const wareHouseBaseUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${warehouseAddress}`;
+  const warehouseBaseUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${warehouseAddress}`;
   const deliveryBaseUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${deliveryAddress}`;
-  const fetchWareHouseCoords = async () => {
-    const wareHouseResponse = await fetch(wareHouseBaseUrl);
-    const wareHouseResults = await wareHouseResponse.json();
-    setWarehouseAddressLat(wareHouseResults[0]?.lat);
-    setWarehouseAddressLng(wareHouseResults[0]?.lon);
+  const fetchWareHouseAddressCoords = async () => {
+    try {
+      const warehouseResponse = await fetch(warehouseBaseUrl);
+      const warehouseResults = await warehouseResponse.json();
+      setWarehouseAddressLat(warehouseResults[0]?.lat);
+      setWarehouseAddressLng(warehouseResults[0]?.lon);
+    } catch (error) {
+      console.error(error);
+    }
+
   };
   const fetchDeliveryAddressCoords = async () => {
-    const deliveryResponse = await fetch(deliveryBaseUrl);
-    const deliveryResults = await deliveryResponse.json();
-    setDeliveryAddressLat(deliveryResults[0]?.lat);
-    setDeliveryAddressLng(deliveryResults[0]?.lon);
+    try {
+      const deliveryResponse = await fetch(deliveryBaseUrl);
+      const deliveryResults = await deliveryResponse.json();
+      setDeliveryAddressLat(deliveryResults[0]?.lat);
+      setDeliveryAddressLng(deliveryResults[0]?.lon);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
 
@@ -58,7 +67,8 @@ const Dashboard: React.FC = () => {
     e.preventDefault();
 
     if (customerName && warehouseAddress && deliveryDate && deliveryAddress) {
-      fetchWareHouseCoords();
+      console.log('warehouseAddressLat: ', warehouseAddressLat);
+      fetchWareHouseAddressCoords();
       fetchDeliveryAddressCoords();
     }
     setFormData(initialState);
@@ -82,9 +92,11 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (isError) {
       console.log(errorMessage);
+      return;
     }
     if (!user) {
       navigate('/login');
+      return;
     };
     dispatch(getDeliveries());
     // return () => dispatch(reset());
@@ -95,9 +107,14 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
       <section className="dashboard-display">
-        {Boolean(deliveries.length) && deliveries.map((delivery) => (
-          <LocationCard delivery={delivery} />
-        ))}
+        {Boolean(Object.keys(deliveries).length) && deliveries.deliveries.map((delivery, idx) => {
+          const deliveryProp: LocationProps = {
+            deliveryData: { ...delivery}
+          }
+          return (
+            <LocationCard {...deliveryProp} key={idx} />
+          )
+        })}
       </section>
       <section>
         <div className="form-group">
@@ -126,7 +143,6 @@ const Dashboard: React.FC = () => {
               />
             </FormControl>
             <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              {/* <InputLabel htmlFor="email">Delivery date</InputLabel> */}
               <OutlinedInput
                 id="deliveryDate"
                 type="date"

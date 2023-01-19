@@ -29,6 +29,19 @@ export interface IAuthState {
   isError: boolean;
   errorMessage: string;
 }
+
+export type Delivery = {
+  createdAt?: string;
+  updatedAt?: string;
+  user_id?: string;
+  _id?: string;
+  customerName: string;
+  warehouseAddressLat: string;
+  warehouseAddressLng: string;
+  deliveryDate: string;
+  deliveryAddressLat: string;
+  deliveryAddressLng: string;
+}
 export interface IDeliveryState {
   deliveries: Delivery[],
   isSuccess: boolean;
@@ -67,15 +80,6 @@ export interface IDeliveryFormData {
   deliveryAddress: string;
 }
 
-export type Delivery = {
-  customerName: string;
-  warehouseAddressLat: number;
-  warehouseAddressLng: number;
-  deliveryDate: string;
-  deliveryAddressLat: number;
-  deliveryAddressLng: number;
-}
-
 export type State = {
   auth: {
     user: {
@@ -85,8 +89,8 @@ export type State = {
 }
 
 export type MapTileProps = {
-  lat: number;
-  lng: number;
+  lat: string;
+  lng: string;
 }
 
 export type LocationProps = {

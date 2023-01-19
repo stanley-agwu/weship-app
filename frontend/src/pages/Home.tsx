@@ -6,11 +6,11 @@ import './styles.scss';
 const delivery: LocationProps = {
   deliveryData: {
     customerName: 'Darwin Enterprises',
-    warehouseAddressLat: 51.505,
-    warehouseAddressLng: -0.09,
+    warehouseAddressLat: '51.505',
+    warehouseAddressLng: '-0.09',
     deliveryDate: '24th January, 2023',
-    deliveryAddressLat: 91.2,
-    deliveryAddressLng: 41.2,
+    deliveryAddressLat: '91.2',
+    deliveryAddressLng: '41.2',
   }
 }
 

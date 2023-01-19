@@ -53,11 +53,12 @@ export const deliverySlice = createSlice({
       .addCase(createDelivery.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createDelivery.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.deliveries.push(action.payload);
-      })
+      .addCase(createDelivery.fulfilled, (state, { payload }) => ({
+        ...state,
+        isLoading : false,
+        isSuccess : true,
+        deliveries: [...state.deliveries, payload],
+      }))
       .addCase(createDelivery.rejected, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
