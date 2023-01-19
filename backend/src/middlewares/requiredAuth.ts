@@ -10,9 +10,9 @@ export const requiredAuth = async (req: Request, res: Response, next: NextFuncti
   if (!authorization || !authorization?.startsWith('Bearer')) {
     res.status(401).json({ error: 'Authorization token required' });
   } else {
-    const token = authorization.split(' ').reverse()[0];
+    const token = authorization?.split(' ').reverse()[0] as string;
 
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET!) as IUserPayload;
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET as string) as IUserPayload;
 
     try {
       const user: UIUser | null = await User.findById(_id).select('-password');
