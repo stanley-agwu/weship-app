@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -22,14 +22,21 @@ const initialState: IDeliveryFormData = {
   deliveryAddress: '',
 };
 
+const initDeliveryData: Delivery = {
+  customerName: '',
+  deliveryDate: '',
+  warehouseAddressLat: '',
+  warehouseAddressLng: '',
+  deliveryAddressLat: '',
+  deliveryAddressLng: '',
+};
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(initialState);
-  const [warehouseAddressLat, setWarehouseAddressLat] = useState(0);
-  const [warehouseAddressLng, setWarehouseAddressLng] = useState(0);
-  const [deliveryAddressLat, setDeliveryAddressLat] = useState(0);
-  const [deliveryAddressLng, setDeliveryAddressLng] = useState(0);
+
+  const deliveryDataRef = useRef(initDeliveryData);
 
   const { user } = useAppSelector(getAuthState);
   const { deliveries, isLoading, isSuccess, isError, errorMessage } =
@@ -41,20 +48,18 @@ const Dashboard: React.FC = () => {
   const deliveryBaseUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${deliveryAddress}`;
   const fetchWareHouseAddressCoords = async () => {
     try {
-      const warehouseResponse = await fetch(warehouseBaseUrl);
-      const warehouseResults = await warehouseResponse.json();
-      setWarehouseAddressLat(warehouseResults[0]?.lat);
-      setWarehouseAddressLng(warehouseResults[0]?.lon);
+      const warehouseResults = warehouseAddress && (await (await fetch(warehouseBaseUrl)).json());
+      deliveryDataRef.current['warehouseAddressLat'] = warehouseResults[0]?.['lat'];
+      deliveryDataRef.current['warehouseAddressLng'] = warehouseResults[0]?.['lon'];
     } catch (error) {
       console.error(error);
     }
   };
   const fetchDeliveryAddressCoords = async () => {
     try {
-      const deliveryResponse = await fetch(deliveryBaseUrl);
-      const deliveryResults = await deliveryResponse.json();
-      setDeliveryAddressLat(deliveryResults[0]?.lat);
-      setDeliveryAddressLng(deliveryResults[0]?.lon);
+      const deliveryResults = deliveryAddress && (await (await fetch(deliveryBaseUrl)).json());
+      deliveryDataRef.current['deliveryAddressLat'] = deliveryResults[0]?.['lat'];
+      deliveryDataRef.current['deliveryAddressLng'] = deliveryResults[0]?.['lon'];
     } catch (error) {
       console.error(error);
     }
@@ -67,16 +72,12 @@ const Dashboard: React.FC = () => {
       await fetchWareHouseAddressCoords();
       await fetchDeliveryAddressCoords();
     }
+    deliveryDataRef.current['customerName'] = customerName;
+    deliveryDataRef.current['deliveryDate'] = deliveryDate;
     setFormData(initialState);
-    const deliveryData: Delivery = {
-      customerName,
-      deliveryDate,
-      warehouseAddressLat: String(warehouseAddressLat),
-      warehouseAddressLng: String(warehouseAddressLng),
-      deliveryAddressLat: String(deliveryAddressLat),
-      deliveryAddressLng: String(deliveryAddressLng),
-    };
-    dispatch(createDelivery(deliveryData));
+    await dispatch(createDelivery(deliveryDataRef.current));
+    await dispatch(getDeliveries());
+    deliveryDataRef.current = initDeliveryData;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +96,7 @@ const Dashboard: React.FC = () => {
       navigate('/login');
       return;
     }
-    dispatch(getDeliveries());
+    if (user) dispatch(getDeliveries());
     // return () => dispatch(reset());
   }, [dispatch, errorMessage, isError, navigate, user]);
 

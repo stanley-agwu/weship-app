@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ErrorType, IDeliveryState, Delivery, State, LoggedInUser } from '../../types.ts';
 import deliveryService from './deliveryService';
 
-const user: LoggedInUser = JSON.parse(localStorage.getItem('user') || 'false');
-
 const initialState: IDeliveryState = {
   deliveries: { deliveries: [] },
   isLoading: false,
@@ -45,6 +43,7 @@ export const getDeliveries = createAsyncThunk('delivery/getAll',
 })
 
 export const deliverySlice = createSlice({
+   /* eslint-disable no-param-reassign */
   name: 'delivery',
   initialState,
   reducers: {
@@ -86,6 +85,7 @@ export const deliverySlice = createSlice({
         : state.errorMessage = JSON.stringify(action.payload);
       })
   }
+  /* eslint-enable no-param-reassign */
 });
 
 export const { reset } = deliverySlice.actions;

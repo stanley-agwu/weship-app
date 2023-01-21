@@ -6,7 +6,7 @@ import authService from './authService';
 const user: LoggedInUser = JSON.parse(localStorage.getItem('user') || 'false');
 
 const initialState: IAuthState = {
-  user: user|| null,
+  user: user || null ,
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -45,6 +45,7 @@ export const logout = createAsyncThunk('auth/logout',
   async () => authService.logout());
 
 const authSlice = createSlice({
+   /* eslint-disable no-param-reassign */
   name: 'auth',
   initialState,
   reducers: {
@@ -60,41 +61,42 @@ const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.user = payload;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(register.rejected, (state, { payload }) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.isError = true;
-        typeof action.payload === 'string'
-          ? state.errorMessage = action.payload
-          : state.errorMessage = JSON.stringify(action.payload);
+        typeof payload === 'string'
+          ? state.errorMessage = payload
+          : state.errorMessage = JSON.stringify(payload);
         state.user = null;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.user = payload;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state, { payload }) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.isError = true;
-        typeof action.payload === 'string'
-          ? state.errorMessage = action.payload
-          : state.errorMessage = JSON.stringify(action.payload);
+        typeof payload === 'string'
+          ? state.errorMessage = payload
+          : state.errorMessage = JSON.stringify(payload);
         state.user = null;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.user = null;
+      state.user = null;
       })
   },
+  /* eslint-enable no-param-reassign */
 })
 
 export const { reset } = authSlice.actions;

@@ -19,7 +19,7 @@ const register = async (userData: IRegisterUser) => {
     localStorage.setItem('user', JSON.stringify(savedData));
   }
 
-  return results;
+  return results.user;
 }
 
 // login user
@@ -39,7 +39,7 @@ const login = async (userData: ILoginUser) => {
     localStorage.setItem('user', JSON.stringify(savedData));
   }
 
-  return results;
+  return results.user;
 }
 
 // log out user

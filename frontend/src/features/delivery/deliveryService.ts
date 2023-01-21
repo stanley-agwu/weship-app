@@ -10,7 +10,7 @@ const createDelivery = async (deliveryData: Delivery, token: string) => {
     }
   });
 
-  return response.data;
+  return response.data.delivery;
 };
 
 // get user deliveries

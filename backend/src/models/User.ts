@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema<User>({
   },
   password:{
     type: String,
-    required: [true, 'Please provide a valid email'],
+    required: [true, 'Please provide a valid password'],
   },
 }, { timestamps: true } );
 
