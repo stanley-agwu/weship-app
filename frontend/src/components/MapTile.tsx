@@ -6,7 +6,6 @@ import './styles.scss';
 import 'leaflet/dist/leaflet.css';
 
 const MapTile = ({ lat, lng }: MapTileProps) => {
-  const coordinates = [Number(lat), Number(lng)];
   const markerIcon = new L.Icon({
     iconUrl: require('../assets/map-marker.png'),
     iconSize: [35, 35],
@@ -14,7 +13,7 @@ const MapTile = ({ lat, lng }: MapTileProps) => {
   return (
     <MapContainer
       className="map-tile-container"
-      center={coordinates}
+      center={[Number(lat), Number(lng)]}
       zoom={13}
       scrollWheelZoom={false}
     >
@@ -22,7 +21,7 @@ const MapTile = ({ lat, lng }: MapTileProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={coordinates} icon={markerIcon}>
+      <Marker position={[Number(lat), Number(lng)]} icon={markerIcon}>
         <Popup>
           Warehouse location <br /> For Delivery.
         </Popup>

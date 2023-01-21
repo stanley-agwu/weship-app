@@ -12,11 +12,11 @@ const register = async (userData: IRegisterUser) => {
    const results = response.data;
 
   if (results) {
-    const userData = {
+    const savedData = {
       id: results.user._id,
       token: results.user.token
     };
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(savedData));
   }
 
   return results;
@@ -32,11 +32,11 @@ const login = async (userData: ILoginUser) => {
    const results = response.data;
 
   if (results) {
-    const userData = {
+    const savedData = {
       id: results.user._id,
       token: results.user.token
     };
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(savedData));
   }
 
   return results;

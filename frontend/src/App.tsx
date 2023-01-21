@@ -8,8 +8,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-const App = () => {
-  return (
+const App = () => (
     <>
       <Router>
         <div className="App">
@@ -24,7 +23,6 @@ const App = () => {
       </Router>
       <ToastContainer />
     </>
-  );
-}
+  )
 
 export default App;

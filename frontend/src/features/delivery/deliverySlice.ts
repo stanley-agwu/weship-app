@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorType, IDeliveryState, Delivery, State } from '../../types.ts';
+import { ErrorType, IDeliveryState, Delivery, State, LoggedInUser } from '../../types.ts';
 import deliveryService from './deliveryService';
 
+const user: LoggedInUser = JSON.parse(localStorage.getItem('user') || 'false');
+
 const initialState: IDeliveryState = {
-  deliveries: [],
+  deliveries: { deliveries: [] },
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -15,7 +17,7 @@ export const createDelivery = createAsyncThunk('delivery/create',
   async (deliveryData: Delivery, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as State;
-      const token = state.auth.user.token;
+      const { token } = state.auth.user;
       return await deliveryService.createDelivery(deliveryData, token);
     } catch (error) {
       let message;
@@ -31,8 +33,8 @@ export const getDeliveries = createAsyncThunk('delivery/getAll',
   async (_, thunkAPI) => {
   try {
     const state = thunkAPI.getState() as State;
-    const token = state.auth.user.token;
-    return await deliveryService.getDeliveries(token);
+    const { token } = state.auth.user;
+    return await deliveryService.getDeliveries(token as string);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message
@@ -57,7 +59,7 @@ export const deliverySlice = createSlice({
         ...state,
         isLoading : false,
         isSuccess : true,
-        deliveries: [...state.deliveries, payload],
+        deliveries: { deliveries: [...state.deliveries.deliveries, payload ] as Delivery[]},
       }))
       .addCase(createDelivery.rejected, (state, action) => {
         state.isSuccess = false;

@@ -42,8 +42,12 @@ export type Delivery = {
   deliveryAddressLat: string;
   deliveryAddressLng: string;
 }
+
+export type DeliveryType = {
+  deliveries: Delivery[] | [];
+}
 export interface IDeliveryState {
-  deliveries: Delivery[],
+  deliveries: DeliveryType,
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;

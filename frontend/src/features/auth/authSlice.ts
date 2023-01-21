@@ -3,10 +3,10 @@ import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IAuthState } from '
 import authService from './authService';
 
 // Get user from localStorage
-const user: LoggedInUser = JSON.parse(localStorage.getItem('user')!);
+const user: LoggedInUser = JSON.parse(localStorage.getItem('user') || 'false');
 
 const initialState: IAuthState = {
-  user: user || null,
+  user: user|| null,
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -15,9 +15,9 @@ const initialState: IAuthState = {
 
 // register user
 export const register = createAsyncThunk('auth/register',
-  async (user: IRegisterUser, thunkAPI) => {
+  async (userData: IRegisterUser, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await authService.register(userData);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message
@@ -29,9 +29,9 @@ export const register = createAsyncThunk('auth/register',
 
 // login user
 export const login = createAsyncThunk('auth/login',
-  async (user: ILoginUser, thunkAPI) => {
+  async (userData: ILoginUser, thunkAPI) => {
     try {
-      return await authService.login(user);
+      return await authService.login(userData);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message

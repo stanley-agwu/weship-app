@@ -1,5 +1,3 @@
-
-// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -11,7 +9,7 @@ import { toast } from 'react-toastify';
 import './styles.scss';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
-import { IDeliveryFormData, LocationProps } from '../types.ts';
+import { Delivery, IDeliveryFormData, LocationProps } from '../types.ts';
 import { createDelivery, reset, getDeliveries } from '../features/delivery/deliverySlice';
 import { getDeliveryState } from '../features/delivery/getters';
 import Spinner from '../components/Spinner';
@@ -22,7 +20,7 @@ const initialState: IDeliveryFormData = {
   warehouseAddress: '',
   deliveryDate: '',
   deliveryAddress: '',
-}
+};
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -34,7 +32,8 @@ const Dashboard: React.FC = () => {
   const [deliveryAddressLng, setDeliveryAddressLng] = useState(0);
 
   const { user } = useAppSelector(getAuthState);
-  const { deliveries, isLoading, isSuccess, isError, errorMessage } = useAppSelector(getDeliveryState);
+  const { deliveries, isLoading, isSuccess, isError, errorMessage } =
+    useAppSelector(getDeliveryState);
 
   const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = formData;
 
@@ -49,7 +48,6 @@ const Dashboard: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-
   };
   const fetchDeliveryAddressCoords = async () => {
     try {
@@ -62,59 +60,59 @@ const Dashboard: React.FC = () => {
     }
   };
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (customerName && warehouseAddress && deliveryDate && deliveryAddress) {
-      console.log('warehouseAddressLat: ', warehouseAddressLat);
-      fetchWareHouseAddressCoords();
-      fetchDeliveryAddressCoords();
+      await fetchWareHouseAddressCoords();
+      await fetchDeliveryAddressCoords();
     }
     setFormData(initialState);
     const deliveryData: Delivery = {
       customerName,
       deliveryDate,
-      warehouseAddressLat,
-      warehouseAddressLng,
-      deliveryAddressLat,
-      deliveryAddressLng
-    }
-    dispatch(createDelivery(deliveryData, user?.token));
+      warehouseAddressLat: String(warehouseAddressLat),
+      warehouseAddressLng: String(warehouseAddressLng),
+      deliveryAddressLat: String(deliveryAddressLat),
+      deliveryAddressLng: String(deliveryAddressLng),
+    };
+    dispatch(createDelivery(deliveryData));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
-      ...prevState, [e.target.name]: e.target.value
-    }))
-  }
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     if (isError) {
-      console.log(errorMessage);
+      toast.error(errorMessage);
       return;
     }
     if (!user) {
       navigate('/login');
       return;
-    };
+    }
     dispatch(getDeliveries());
     // return () => dispatch(reset());
   }, [dispatch, errorMessage, isError, navigate, user]);
 
-  if (isLoading) return <Spinner />
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="dashboard">
       <section className="dashboard-display">
-        {Boolean(Object.keys(deliveries).length) && deliveries.deliveries.map((delivery, idx) => {
-          const deliveryProp: LocationProps = {
-            deliveryData: { ...delivery}
-          }
-          return (
-            <LocationCard {...deliveryProp} key={idx} />
-          )
-        })}
+        {Boolean(Object.keys(deliveries).length) &&
+          deliveries.deliveries.map((delivery, idx) => {
+            const deliveryProp: LocationProps = {
+              deliveryData: { ...delivery },
+            };
+            return <LocationCard {...deliveryProp} key={idx} />;
+          })}
       </section>
       <section>
         <div className="form-group">
@@ -164,13 +162,15 @@ const Dashboard: React.FC = () => {
               />
             </FormControl>
             <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <Button type="submit" variant="contained" className="submit">Submit delivery</Button>
+              <Button type="submit" variant="contained" className="submit">
+                Submit delivery
+              </Button>
             </FormControl>
           </form>
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
 export default Dashboard;
