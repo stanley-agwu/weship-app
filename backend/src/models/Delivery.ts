@@ -12,6 +12,14 @@ const DeliverySchema = new mongoose.Schema<Delivery>({
     type: String,
     required: true,
   },
+  deliveryDate: {
+    type: String,
+    required: true,
+  },
+  warehouseAddress: {
+    type: String,
+    required: true
+  },
   warehouseAddressLat: {
     type: String,
     required: true
@@ -20,7 +28,7 @@ const DeliverySchema = new mongoose.Schema<Delivery>({
     type: String,
     required: true
   },
-  deliveryDate: {
+  deliveryAddress: {
     type: String,
     required: true,
   },
@@ -31,7 +39,7 @@ const DeliverySchema = new mongoose.Schema<Delivery>({
   deliveryAddressLng: {
     type: String,
     required: true,
-  },
+  }
 }, { timestamps: true });
 
 export default mongoose.model<Delivery>('Delivery', DeliverySchema);

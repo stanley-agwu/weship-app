@@ -39,13 +39,20 @@ export const getDelivery = async (req: Request, res: Response) => {
 
 // create a delivery
 export const createDelivery = async (req: Request, res: Response) => {
-  const { customerName, warehouseAddressLat, warehouseAddressLng, deliveryDate, deliveryAddressLat, deliveryAddressLng } = req.body;
+  const { customerName,
+          deliveryDate, 
+          warehouseAddress, 
+          warehouseAddressLat, 
+          warehouseAddressLng, 
+          deliveryAddress, 
+          deliveryAddressLat, 
+          deliveryAddressLng } = req.body;
   const fields = [];
 
   if (!customerName) fields.push('customerName');
   if (!deliveryDate) fields.push('deliveryDate');
-  if (!warehouseAddressLat || !warehouseAddressLng) fields.push('warehouseAddress');
-  if (!deliveryAddressLat || !deliveryAddressLng) fields.push('deliveryAddress');
+  if (!warehouseAddressLat || !warehouseAddressLng || !warehouseAddress) fields.push('warehouseAddress');
+  if (!deliveryAddressLat || !deliveryAddressLng || !deliveryAddress) fields.push('deliveryAddress');
 
   if (Boolean(fields.length)) {
     return res.status(400).json({ error: 'Please fill all fields', fields })
