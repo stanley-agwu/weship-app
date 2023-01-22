@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 
 const MapTile = ({ lat, lng }: MapTileProps) => {
   const markerIcon = new L.Icon({
+    /* eslint-disable-next-line global-require */
     iconUrl: require('../assets/map-marker.png'),
     iconSize: [35, 35],
   });

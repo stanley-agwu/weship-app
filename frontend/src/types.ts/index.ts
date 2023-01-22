@@ -22,6 +22,10 @@ export type LoggedInUser = {
   token?: string,
 }
 
+export interface ILoggedInUser {
+  user: LoggedInUser;
+}
+
 export interface IAuthState {
   user: LoggedInUser | null;
   isSuccess: boolean;
@@ -43,11 +47,11 @@ export type Delivery = {
   deliveryAddressLng: string;
 }
 
-export type DeliveryType = {
+export type DeliveryArray = {
   deliveries: Delivery[] | [];
 }
 export interface IDeliveryState {
-  deliveries: DeliveryType,
+  deliveries: DeliveryArray,
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;

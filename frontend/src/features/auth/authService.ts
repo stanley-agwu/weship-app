@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ENDPOINTS } from '../../constants';
-import { IRegisterUser, ILoginUser } from '../../types.ts';
+import { IRegisterUser, ILoginUser, ILoggedInUser } from '../../types.ts';
 
 // register user
 const register = async (userData: IRegisterUser) => {
@@ -9,7 +9,7 @@ const register = async (userData: IRegisterUser) => {
       'Content-Type': 'application/json',
     },
    });
-   const results = response.data;
+   const results: ILoggedInUser = response.data;
 
   if (results) {
     const savedData = {
@@ -29,7 +29,7 @@ const login = async (userData: ILoginUser) => {
       'Content-Type': 'application/json',
     },
    });
-   const results = response.data;
+   const results: ILoggedInUser = response.data;
 
   if (results) {
     const savedData = {

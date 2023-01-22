@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IAuthState } from '../../types.ts';
 import authService from './authService';
 
+  /* @typescript-eslint-disable no-unsafe-assignment */
+
 // Get user from localStorage
 const user: LoggedInUser = JSON.parse(localStorage.getItem('user') || 'false');
 
@@ -17,7 +19,8 @@ const initialState: IAuthState = {
 export const register = createAsyncThunk('auth/register',
   async (userData: IRegisterUser, thunkAPI) => {
     try {
-      return await authService.register(userData);
+      const user: LoggedInUser = await authService.register(userData);
+      return user;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message
@@ -31,7 +34,8 @@ export const register = createAsyncThunk('auth/register',
 export const login = createAsyncThunk('auth/login',
   async (userData: ILoginUser, thunkAPI) => {
     try {
-      return await authService.login(userData);
+      const user: LoggedInUser = await authService.login(userData)
+      return user ;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message
@@ -42,10 +46,20 @@ export const login = createAsyncThunk('auth/login',
   })
 
 export const logout = createAsyncThunk('auth/logout',
-  async () => authService.logout());
+  (_, thunkAPI) => {
+    try {
+      return authService.logout();
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message
+      else if (typeof error === 'string') message = error.toString();
+      else message = (error: ErrorType) => error.response && error.response.data && error.response.data.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
 
 const authSlice = createSlice({
-   /* eslint-disable no-param-reassign */
   name: 'auth',
   initialState,
   reducers: {

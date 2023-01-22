@@ -49,8 +49,8 @@ const Dashboard: React.FC = () => {
   const fetchWareHouseAddressCoords = async () => {
     try {
       const warehouseResults = warehouseAddress && (await (await fetch(warehouseBaseUrl)).json());
-      deliveryDataRef.current['warehouseAddressLat'] = warehouseResults[0]?.['lat'];
-      deliveryDataRef.current['warehouseAddressLng'] = warehouseResults[0]?.['lon'];
+      deliveryDataRef.current.warehouseAddressLat = warehouseResults[0]?.lat;
+      deliveryDataRef.current.warehouseAddressLng = warehouseResults[0]?.lon;
     } catch (error) {
       console.error(error);
     }
@@ -58,8 +58,8 @@ const Dashboard: React.FC = () => {
   const fetchDeliveryAddressCoords = async () => {
     try {
       const deliveryResults = deliveryAddress && (await (await fetch(deliveryBaseUrl)).json());
-      deliveryDataRef.current['deliveryAddressLat'] = deliveryResults[0]?.['lat'];
-      deliveryDataRef.current['deliveryAddressLng'] = deliveryResults[0]?.['lon'];
+      deliveryDataRef.current.deliveryAddressLat = deliveryResults[0]?.lat;
+      deliveryDataRef.current.deliveryAddressLng = deliveryResults[0]?.lon;
     } catch (error) {
       console.error(error);
     }
@@ -72,8 +72,8 @@ const Dashboard: React.FC = () => {
       await fetchWareHouseAddressCoords();
       await fetchDeliveryAddressCoords();
     }
-    deliveryDataRef.current['customerName'] = customerName;
-    deliveryDataRef.current['deliveryDate'] = deliveryDate;
+    deliveryDataRef.current.customerName = customerName;
+    deliveryDataRef.current.deliveryDate = deliveryDate;
     setFormData(initialState);
     await dispatch(createDelivery(deliveryDataRef.current));
     await dispatch(getDeliveries());
@@ -96,7 +96,10 @@ const Dashboard: React.FC = () => {
       navigate('/login');
       return;
     }
-    if (user) dispatch(getDeliveries());
+    if (user) {
+      /* @typescript-eslint-disable-next-line no-floating-promises */
+      dispatch(getDeliveries());
+    }
     // return () => dispatch(reset());
   }, [dispatch, errorMessage, isError, navigate, user]);
 

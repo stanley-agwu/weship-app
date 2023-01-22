@@ -15,7 +15,6 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        // "plugin:prettier/recommended",
         "prettier"
     ],
     "overrides": [
@@ -36,5 +35,15 @@ module.exports = {
         "import/extensions": "off",
         "react/react-in-jsx-scope": "off",
         "import/prefer-default-export": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "no-param-reassign": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "no-underscore-dangle": "off",
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-misused-promises": "warn",
+        "@typescript-eslint/no-floating-promises": "warn",
+
     }
 }

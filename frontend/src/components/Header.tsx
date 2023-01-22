@@ -22,10 +22,12 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { reset, logout } from '../features/auth/authSlice';
 import { getAuthState } from '../features/auth/getters';
 
-const pages = [{ name: 'Home', path: '/home' },
-               { name: 'Dashboard', path: '/' },
-               { name: 'Pricing', path: '#' }, 
-               { name: 'Blog', path: '#' }];
+const pages = [
+  { name: 'Home', path: '/home' },
+  { name: 'Dashboard', path: '/' },
+  { name: 'Pricing', path: '#' },
+  { name: 'Blog', path: '#' },
+];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -37,10 +39,11 @@ const Header = () => {
   const { user } = useAppSelector(getAuthState);
   const hasUser = user && Boolean(Object.keys(user).length);
 
-  const actions = [ 
-    { type: 'Register', icon: HowToRegIcon, path: "/register", display: !hasUser },
-    { type: 'Login', icon: PersonAddIcon, path: "/login", display: !hasUser },
-    { type: 'Logout', icon: LogoutIcon, path: "/", display: hasUser }];
+  const actions = [
+    { type: 'Register', icon: HowToRegIcon, path: '/register', display: !hasUser },
+    { type: 'Login', icon: PersonAddIcon, path: '/login', display: !hasUser },
+    { type: 'Logout', icon: LogoutIcon, path: '/', display: hasUser },
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -57,17 +60,25 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const onLogout =() => {
-    dispatch(logout());
+  const onLogout = async () => {
+    await dispatch(logout());
     dispatch(reset());
     navigate('/');
-  }
+  };
+
+  const onClickLogout = async ({ type }: { type: string }) => {
+    if (type === 'Logout') {
+      await onLogout();
+    }
+  };
 
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <LocalShippingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor: 'pointer' }} />
+          <LocalShippingIcon
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor: 'pointer' }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -122,7 +133,9 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <LocalShippingIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, cursor: 'pointer'}} />
+          <LocalShippingIcon
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, cursor: 'pointer' }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -152,21 +165,25 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: 'flex', mr: 3}}>
-            {actions.map((action) => (
-              action.display && (
-                <Link
-                  to={action.path}
-                  className="nav-items"
-                  key={action.type}
-                  onClick={() => action.type === 'Logout' ? onLogout() : null}>
-                  <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
-                    <Typography textAlign="center" sx={{ mr: 1 }}>{action.type}</Typography>
-                    <action.icon />
-                  </Box>
-                </Link>
-              )
-            ))}
+          <Box sx={{ display: 'flex', mr: 3 }}>
+            {actions.map(
+              (action) =>
+                action.display && (
+                  <Link
+                    to={action.path}
+                    className="nav-items"
+                    key={action.type}
+                    onClick={onClickLogout}
+                  >
+                    <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
+                      <Typography textAlign="center" sx={{ mr: 1 }}>
+                        {action.type}
+                      </Typography>
+                      <action.icon />
+                    </Box>
+                  </Link>
+                )
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

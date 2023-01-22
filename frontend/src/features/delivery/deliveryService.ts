@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ENDPOINTS } from '../../constants';
-import { Delivery } from '../../types.ts';
+import { Delivery, DeliveryArray } from '../../types.ts';
 
 // create delivery
 const createDelivery = async (deliveryData: Delivery, token: string) => {
@@ -10,7 +10,9 @@ const createDelivery = async (deliveryData: Delivery, token: string) => {
     }
   });
 
-  return response.data.delivery;
+  const { delivery }: { delivery: Delivery }= response.data
+
+  return delivery;
 };
 
 // get user deliveries
@@ -21,7 +23,9 @@ const getDeliveries = async (token: string) => {
     }
   });
 
-  return response.data;
+  const deliveryArray: DeliveryArray = response.data;
+
+  return deliveryArray;
 };
 
 const deliveryService = {

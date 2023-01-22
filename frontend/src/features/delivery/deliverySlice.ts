@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorType, IDeliveryState, Delivery, State, LoggedInUser } from '../../types.ts';
+import { ErrorType, IDeliveryState, Delivery, State, LoggedInUser, DeliveryArray } from '../../types.ts';
 import deliveryService from './deliveryService';
 
 const initialState: IDeliveryState = {
@@ -16,7 +16,8 @@ export const createDelivery = createAsyncThunk('delivery/create',
     try {
       const state = thunkAPI.getState() as State;
       const { token } = state.auth.user;
-      return await deliveryService.createDelivery(deliveryData, token);
+      const delivery: Delivery = await deliveryService.createDelivery(deliveryData, token);
+      return delivery;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message
@@ -32,7 +33,8 @@ export const getDeliveries = createAsyncThunk('delivery/getAll',
   try {
     const state = thunkAPI.getState() as State;
     const { token } = state.auth.user;
-    return await deliveryService.getDeliveries(token as string);
+    const deliveryArray: DeliveryArray = await deliveryService.getDeliveries(token);
+    return deliveryArray;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message
