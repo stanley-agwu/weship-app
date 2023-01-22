@@ -40,9 +40,11 @@ export type Delivery = {
   user_id?: string;
   _id?: string;
   customerName: string;
+  deliveryDate: string;
+  warehouseAddress: string;
   warehouseAddressLat: string;
   warehouseAddressLng: string;
-  deliveryDate: string;
+  deliveryAddress: string;
   deliveryAddressLat: string;
   deliveryAddressLng: string;
 }
@@ -99,6 +101,7 @@ export type State = {
 export type MapTileProps = {
   lat: string;
   lng: string;
+  warehouseLocation: string;
 }
 
 export type LocationProps = {

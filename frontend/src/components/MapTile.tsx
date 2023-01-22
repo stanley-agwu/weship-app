@@ -5,7 +5,7 @@ import { MapTileProps } from '../types.ts';
 import './styles.scss';
 import 'leaflet/dist/leaflet.css';
 
-const MapTile = ({ lat, lng }: MapTileProps) => {
+const MapTile = ({ lat, lng, warehouseLocation }: MapTileProps) => {
   const markerIcon = new L.Icon({
     /* eslint-disable-next-line global-require */
     iconUrl: require('../assets/map-marker.png'),
@@ -24,7 +24,7 @@ const MapTile = ({ lat, lng }: MapTileProps) => {
       />
       <Marker position={[Number(lat), Number(lng)]} icon={markerIcon}>
         <Popup>
-          Warehouse location <br /> For Delivery.
+          <b>Warehouse location:</b> <br /> {warehouseLocation}
         </Popup>
       </Marker>
     </MapContainer>

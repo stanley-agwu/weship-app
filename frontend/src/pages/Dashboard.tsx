@@ -25,8 +25,10 @@ const initialState: IDeliveryFormData = {
 const initDeliveryData: Delivery = {
   customerName: '',
   deliveryDate: '',
+  warehouseAddress: '',
   warehouseAddressLat: '',
   warehouseAddressLng: '',
+  deliveryAddress: '',
   deliveryAddressLat: '',
   deliveryAddressLng: '',
 };
@@ -74,6 +76,8 @@ const Dashboard: React.FC = () => {
     }
     deliveryDataRef.current.customerName = customerName;
     deliveryDataRef.current.deliveryDate = deliveryDate;
+    deliveryDataRef.current.warehouseAddress = warehouseAddress;
+    deliveryDataRef.current.deliveryAddress = deliveryAddress;
     setFormData(initialState);
     await dispatch(createDelivery(deliveryDataRef.current));
     await dispatch(getDeliveries());
