@@ -107,3 +107,14 @@ export type MapTileProps = {
 export type LocationProps = {
   deliveryData: Delivery
 }
+
+export type TableDelivery = {
+  createdAt?: string;
+  updatedAt?: string;
+  user_id?: string;
+  _id?: string;
+  customerName: string;
+  deliveryDate: string;
+  warehouseAddress: string;
+  deliveryAddress: string;
+}

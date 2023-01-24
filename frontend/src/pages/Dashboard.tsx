@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 
 import './styles.scss';
+import Table from '../components/Table';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
 import { Delivery, IDeliveryFormData, LocationProps } from '../types.ts';
@@ -114,13 +115,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
       <section className="dashboard-display">
-        {Boolean(Object.keys(deliveries).length) &&
-          deliveries.deliveries.map((delivery, idx) => {
-            const deliveryProp: LocationProps = {
-              deliveryData: { ...delivery },
-            };
-            return <LocationCard {...deliveryProp} key={idx} />;
-          })}
+        <Table {...deliveries} />
       </section>
       <section>
         <div className="form-group">

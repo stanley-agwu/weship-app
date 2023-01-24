@@ -1,7 +1,7 @@
 .nav-items {
   text-decoration: none;
   background: transparent;
-  color: #FFFFFF;
+  color: #ffffff;
   border: transparent;
 }
 
@@ -40,6 +40,28 @@
       height: 100%;
     }
   }
+}
+
+table {
+  border: 1px solid lightgray;
+}
+
+tbody {
+  border-bottom: 1px solid lightgray;
+}
+
+th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  padding: 2px 4px;
+}
+
+tfoot {
+  color: gray;
+}
+
+tfoot th {
+  font-weight: normal;
 }
 
 @keyframes spin {
