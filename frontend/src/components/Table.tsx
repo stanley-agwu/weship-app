@@ -10,6 +10,8 @@ import { TableDelivery } from '../types.ts';
 
 const columnHelper = createColumnHelper<TableDelivery>();
 
+const tab = [];
+
 const columns = [
   columnHelper.accessor((row) => row.customerName, {
     id: 'customerName',

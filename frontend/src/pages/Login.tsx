@@ -18,13 +18,12 @@ import './styles.scss';
 import { getAuthState } from '../features/auth/getters';
 import Spinner from '../components/Spinner';
 
-
 const Login = () => {
   const [formData, setFormData] = useState<ILoginFormData>({
     email: '',
     password: '',
     showPassword: false,
-  })
+  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -32,13 +31,14 @@ const Login = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState: ILoginFormData) => ({
-      ...prevState, [e.target.name]: e.target.value,
-    }))
-  }
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     if (isError) toast.error(errorMessage);
-    else if (isSuccess || user)  navigate('/');
+    else if (isSuccess || user) navigate('/');
     dispatch(reset());
   }, [user, isSuccess, isError, errorMessage, navigate, dispatch]);
 
@@ -46,20 +46,21 @@ const Login = () => {
 
   const handleClickShowPassword = () => {
     setFormData((prevState: ILoginFormData) => ({
-      ...prevState, showPassword: !formData.showPassword,
-    }))
-  }
+      ...prevState,
+      showPassword: !formData.showPassword,
+    }));
+  };
 
   const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  }
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const userData = { email, password };
-    dispatch(login(userData));
-  }
+    await dispatch(login(userData));
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -102,7 +103,9 @@ const Login = () => {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-          <Button type="submit" variant="contained" className="submit">Login</Button>
+          <Button type="submit" variant="contained" className="submit">
+            Login
+          </Button>
         </FormControl>
         <div className="signin-section">
           <span>No account?</span>
@@ -110,7 +113,7 @@ const Login = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default Login;

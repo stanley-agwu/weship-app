@@ -34,49 +34,48 @@ const Register = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState: RegisterFormData) => ({
-      ...prevState, [e.target.name]: e.target.value,
-    }))
-  }
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     if (isError) toast.error(errorMessage);
-    else if (isSuccess || user)  navigate('/');
+    else if (isSuccess || user) navigate('/');
     dispatch(reset());
   }, [user, isSuccess, isError, errorMessage, navigate, dispatch]);
 
-  const { username,
-          email,
-          password,
-          comfirmPassword,
-          showPassword,
-          showConfirmPassword } = formData;
+  const { username, email, password, comfirmPassword, showPassword, showConfirmPassword } =
+    formData;
 
   const handleClickShowPassword = () => {
     setFormData((prevState: RegisterFormData) => ({
-      ...prevState, showPassword: !showPassword,
-    }))
-  }
+      ...prevState,
+      showPassword: !showPassword,
+    }));
+  };
 
   const handleClickShowConfirmPassword = () => {
     setFormData((prevState: RegisterFormData) => ({
-      ...prevState, showConfirmPassword: !showConfirmPassword,
-    }))
-  }
+      ...prevState,
+      showConfirmPassword: !showConfirmPassword,
+    }));
+  };
 
   const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  }
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== comfirmPassword) {
       toast.error('Passwords do not match');
     } else {
       const userData = { username, email, password };
-      dispatch(register(userData));
+      await dispatch(register(userData));
     }
-  }
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -153,7 +152,9 @@ const Register = () => {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-          <Button type="submit" variant="contained" className="submit">Sign up</Button>
+          <Button type="submit" variant="contained" className="submit">
+            Sign up
+          </Button>
         </FormControl>
         <div className="signup-section">
           <span>Already have an account?</span>
@@ -161,7 +162,7 @@ const Register = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default Register;

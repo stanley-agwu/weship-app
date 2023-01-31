@@ -8,7 +8,8 @@
     "server": "nodemon backend/src/server",
     "build": "tsc -p .",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prepare": "husky install"
   },
   "author": "stanley agwu",
   "license": "MIT",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "concurrently": "^7.4.0",
     "nodemon": "^2.0.20",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "husky": "^8.0.0"
   }
 }
