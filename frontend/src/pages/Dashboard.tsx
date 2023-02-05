@@ -13,7 +13,6 @@ import { Delivery, IDeliveryFormData, LocationProps } from '../types.ts';
 import { createDelivery, reset, getDeliveries } from '../features/delivery/deliverySlice';
 import { getDeliveryState } from '../features/delivery/getters';
 import Spinner from '../components/Spinner';
-import LocationCard from '../components/LocationCard';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -74,10 +73,14 @@ const Dashboard: React.FC = () => {
       await fetchWareHouseAddressCoords();
       await fetchDeliveryAddressCoords();
     }
-    deliveryDataRef.current.customerName = customerName;
-    deliveryDataRef.current.deliveryDate = deliveryDate;
-    deliveryDataRef.current.warehouseAddress = warehouseAddress;
-    deliveryDataRef.current.deliveryAddress = deliveryAddress;
+    deliveryDataRef.current = {
+      ...deliveryDataRef.current,
+      customerName,
+      deliveryDate,
+      warehouseAddress,
+      deliveryAddress,
+    };
+
     setFormData(initialState);
     await dispatch(createDelivery(deliveryDataRef.current));
     await dispatch(getDeliveries());
