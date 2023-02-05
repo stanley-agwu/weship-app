@@ -6,8 +6,6 @@ module.exports = {
         "jest": true,
     },
     "extends": [
-        "react-app",
-        "react-app/jest",
         "airbnb-base",
         "airbnb-typescript",
         "plugin:import/typescript",
@@ -25,7 +23,7 @@ module.exports = {
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": "./tsconfig.json"
+        "project": "./backend/tsconfig.json"
     },
     "plugins": [
         "react",
@@ -57,7 +55,19 @@ module.exports = {
                     ["internal", "parent", "sibling", "index"],
                 ],
             }
-        ]
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            {
+                "selector": "variable",
+                "format": [
+                    "camelCase",
+                    "PascalCase",
+                    "UPPER_CASE"
+                ],
+                "leadingUnderscore": "allow"
+            },
+        ],
     },
     "settings": {
         "import/parsers": {
@@ -66,7 +76,7 @@ module.exports = {
         "import/resolver": {
             "typescript": {
                 "alwaysTryTypes": true,
-                "project": "./tsconfig.json",
+                "project": "./backend/tsconfig.json",
             },
         },
     },
