@@ -14,13 +14,13 @@ export interface ILoginFormData {
 }
 
 export type LoggedInUser = {
-  _id: string,
-  username: string,
-  email: string,
-  createdAt: string,
-  updatedAt: string,
-  token?: string,
-}
+  _id: string;
+  username: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  token?: string;
+};
 
 export interface ILoggedInUser {
   user: LoggedInUser;
@@ -47,13 +47,13 @@ export type Delivery = {
   deliveryAddress: string;
   deliveryAddressLat: string;
   deliveryAddressLng: string;
-}
+};
 
 export type DeliveryArray = {
   deliveries: Delivery[] | [];
-}
+};
 export interface IDeliveryState {
-  deliveries: DeliveryArray,
+  deliveries: DeliveryArray;
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;
@@ -73,14 +73,14 @@ export interface ILoginUser {
 
 export type ErrorType = {
   response: {
-    data: { 
+    data: {
       message: string;
-    }
-  }
-}
+    };
+  };
+};
 export interface IRootState {
   auth: IAuthState;
-  delivery: IDeliveryState,
+  delivery: IDeliveryState;
 }
 
 export interface IDeliveryFormData {
@@ -94,19 +94,19 @@ export type State = {
   auth: {
     user: {
       token: string;
-    }
-  }
-}
+    };
+  };
+};
 
 export type MapTileProps = {
   lat: string;
   lng: string;
   warehouseLocation: string;
-}
+};
 
 export type LocationProps = {
-  deliveryData: Delivery
-}
+  deliveryData: Delivery;
+};
 
 export type TableDelivery = {
   createdAt?: string;
@@ -117,4 +117,4 @@ export type TableDelivery = {
   deliveryDate: string;
   warehouseAddress: string;
   deliveryAddress: string;
-}
+};

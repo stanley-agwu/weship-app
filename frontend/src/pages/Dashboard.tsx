@@ -5,7 +5,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-
 import './styles.scss';
 import Table from '../components/Table';
 import { useAppSelector, useAppDispatch } from '../app/hooks';

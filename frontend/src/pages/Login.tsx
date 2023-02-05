@@ -9,11 +9,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 import { ILoginFormData } from '../types.ts';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { login, reset } from '../features/auth/authSlice';
-
 import './styles.scss';
 import { getAuthState } from '../features/auth/getters';
 import Spinner from '../components/Spinner';
