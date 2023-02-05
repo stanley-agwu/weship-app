@@ -41,7 +41,7 @@ const Header = () => {
   const actions = [
     { type: 'Register', icon: HowToRegIcon, path: '/register', display: !hasUser },
     { type: 'Login', icon: PersonAddIcon, path: '/login', display: !hasUser },
-    { type: 'Logout', icon: LogoutIcon, path: '/', display: hasUser },
+    { type: 'Logout', icon: LogoutIcon, path: '/home', display: hasUser },
   ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -59,13 +59,20 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const navigateToPage = (path: string) => {
+    if (path === '/' && !hasUser) {
+      return;
+    }
+    navigate(path);
+  };
+
   const onLogout = async () => {
     await dispatch(logout());
     dispatch(reset());
-    navigate('/');
+    navigate('/home');
   };
 
-  const onClickLogout = async ({ type }: { type: string }) => {
+  const onClickLogout = async (type: string) => {
     if (type === 'Logout') {
       await onLogout();
     }
@@ -126,7 +133,7 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={() => navigate(page.path)}>
+                <MenuItem key={page.name} onClick={() => navigateToPage(page.path)}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
@@ -157,7 +164,7 @@ const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page.name}
-                onClick={() => navigate(page.path)}
+                onClick={() => navigateToPage(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.name}
@@ -172,7 +179,7 @@ const Header = () => {
                     to={action.path}
                     className="nav-items"
                     key={action.type}
-                    onClick={onClickLogout}
+                    onClick={() => onClickLogout(action.type)}
                   >
                     <Box sx={{ display: 'flex', mr: 2, cursor: 'pointer' }}>
                       <Typography textAlign="center" sx={{ mr: 1 }}>
