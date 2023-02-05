@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import  asyncHandler from 'express-async-handler';
+import asyncHandler from 'express-async-handler';
 import mongoose from 'mongoose';
-
 import Delivery from '../models/Delivery';
-
-
+import { Delivery as IDelivery, UIUser } from 'src/types';
 
 // get all deliveries
 export const getDeliveryList = asyncHandler(async (req: Request, res: Response) => {
@@ -20,7 +18,7 @@ export const getDelivery = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
-  const { user } = req.body;
+  const { user }: { user: UIUser } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
@@ -39,32 +37,37 @@ export const getDelivery = async (req: Request, res: Response) => {
 
 // create a delivery
 export const createDelivery = async (req: Request, res: Response) => {
-  const { customerName,
-          deliveryDate, 
-          warehouseAddress, 
-          warehouseAddressLat, 
-          warehouseAddressLng, 
-          deliveryAddress, 
-          deliveryAddressLat, 
-          deliveryAddressLng } = req.body;
+  const {
+    customerName,
+    deliveryDate,
+    warehouseAddress,
+    warehouseAddressLat,
+    warehouseAddressLng,
+    deliveryAddress,
+    deliveryAddressLat,
+    deliveryAddressLng,
+  } = req.body;
   const fields = [];
 
   if (!customerName) fields.push('customerName');
   if (!deliveryDate) fields.push('deliveryDate');
-  if (!warehouseAddressLat || !warehouseAddressLng || !warehouseAddress) fields.push('warehouseAddress');
-  if (!deliveryAddressLat || !deliveryAddressLng || !deliveryAddress) fields.push('deliveryAddress');
+  if (!warehouseAddressLat || !warehouseAddressLng || !warehouseAddress)
+    fields.push('warehouseAddress');
+  if (!deliveryAddressLat || !deliveryAddressLng || !deliveryAddress)
+    fields.push('deliveryAddress');
 
-  if (Boolean(fields.length)) {
-    return res.status(400).json({ error: 'Please fill all fields', fields })
+  if (fields.length) {
+    return res.status(400).json({ error: 'Please fill all fields', fields });
   }
-  
+
   try {
     const delivery = await Delivery.create(req.body);
     return res.status(200).json({ delivery });
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({ error: error.message})
+      return res.status(500).json({ error: error.message });
     }
+    return null;
   }
 };
 
@@ -75,8 +78,7 @@ export const deleteDelivery = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
-
-  const { user } = req.body;
+  const { user }: { user: UIUser } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
@@ -96,8 +98,9 @@ export const deleteDelivery = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      return res.status(500).json({ error: error.message})
+      return res.status(500).json({ error: error.message });
     }
+    return null;
   }
 };
 
@@ -109,7 +112,7 @@ export const updateDelivery = async (req: Request, res: Response) => {
     return res.status(404).json({ error: 'Invalid id, no such delivery record' });
   }
 
-  const { user } = req.body;
+  const { user }: { user: UIUser } = req.body;
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
   }
@@ -123,13 +126,19 @@ export const updateDelivery = async (req: Request, res: Response) => {
     return res.status(401).json({ error: 'User not authorized' });
   }
 
+  type RequestBody = IDelivery & {
+    user: UIUser;
+  };
+  const reqBody: RequestBody = req.body;
+
   try {
-    const updatedDelivery = await Delivery.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedDelivery = await Delivery.findByIdAndUpdate(id, reqBody, { new: true });
     return res.status(200).json({ delivery: updatedDelivery });
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      return res.status(500).json({ error: error.message});
+      return res.status(500).json({ error: error.message });
     }
+    return null;
   }
 };

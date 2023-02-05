@@ -1,11 +1,11 @@
 import express from 'express';
-
-import { createDelivery,
-          deleteDelivery,
-          getDelivery,
-          getDeliveryList,
-          updateDelivery
-        } from '../controllers/deliveryControllers';
+import {
+  createDelivery,
+  deleteDelivery,
+  getDelivery,
+  getDeliveryList,
+  updateDelivery,
+} from '../controllers/deliveryControllers';
 import { requiredAuth } from '../middlewares/requiredAuth';
 
 const router = express.Router();
