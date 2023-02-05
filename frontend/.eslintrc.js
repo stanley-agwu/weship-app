@@ -11,11 +11,13 @@ module.exports = {
         "airbnb-base",
         "airbnb-typescript",
         "plugin:import/typescript",
+        "plugin:import/errors",
+        "plugin:import/warnings",
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:prettier/recommended",
         "plugin:@typescript-eslint/recommended",
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        "prettier"
     ],
     "overrides": [
     ],
@@ -28,9 +30,11 @@ module.exports = {
     "plugins": [
         "react",
         "@typescript-eslint",
+        "import",
         "prettier"
     ],
     "rules": {
+        "prettier/prettier": "error",
         "react/jsx-uses-react": "off",
         "import/extensions": "off",
         "react/react-in-jsx-scope": "off",
@@ -38,12 +42,32 @@ module.exports = {
         "@typescript-eslint/no-unsafe-assignment": "off",
         "no-param-reassign": "off",
         "@typescript-eslint/no-shadow": "off",
-        "no-underscore-dangle": "off",
+        "no-console": "off",
         "no-underscore-dangle": "off",
         "@typescript-eslint/no-unused-expressions": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/no-floating-promises": "warn",
-
-    }
+        "import/order": [
+            "error",
+            {
+                "newlines-between": "never",
+                groups: [
+                    ["builtin", 'external'],
+                    ["internal", "parent", "sibling", "index"],
+                ],
+            }
+        ]
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parsers": [".ts", ".tsx"],
+        },
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true,
+                "project": "./tsconfig.json",
+            },
+        },
+    },
 }
