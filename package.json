@@ -13,7 +13,10 @@
     "lint:fix": "eslint --fix .",
     "lint:staged": "npx lint-staged .",
     "format": "npx prettier . --check",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "stylelint": "npx stylelint **/*.scss",
+    "fix:code": "prettier-eslint --write 'src/**/*.{ts, tsx}'",
+    "fix:style": "prettier-stylelint --write 'src/**/*.{css, scss}'"
   },
   "author": "stanley agwu",
   "license": "MIT",
@@ -52,7 +55,17 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
-    "prettier": "2.8.3",
+    "prettier": "^2.8.3",
+    "prettier-eslint": "^15.0.1",
+    "prettier-eslint-cli": "^7.1.0",
+    "prettier-stylelint": "^0.4.2",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-order": "^6.0.1",
+    "stylelint-prettier": "^2.0.0",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.8.4"
   }
