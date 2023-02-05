@@ -10,7 +10,7 @@ import Register from './pages/Register';
 const App = () => (
   <>
     <Router>
-      <div className="App">
+      <div className="app">
         <Header />
         <Routes>
           <Route path="/home" element={<Home />} />

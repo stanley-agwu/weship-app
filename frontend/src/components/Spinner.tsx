@@ -1,8 +1,8 @@
 import './styles.scss';
 
 const Spinner = () => (
-  <div className="loadingSpinnerContainer">
-    <div className="loadingSpinner"></div>
+  <div className="loading-spinner-container">
+    <div className="loading-spinner"></div>
   </div>
 );
 

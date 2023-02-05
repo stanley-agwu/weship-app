@@ -1,15 +1,16 @@
 body {
-  margin: 0;
   font-family: 'Work Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 }
 
 html {
+  background-color: #f6f8fa;
   margin: 0;
   padding: 0;
-  background-color: #f6f8fa;
 }
-.App {
+
+.app {
   background-color: #f6f8fa;
 }

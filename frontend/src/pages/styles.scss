@@ -1,72 +1,79 @@
 .form-group {
-  background: #ffffff;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px rgb(0 0 0 / 25%);
   margin: 10rem auto 0;
   max-width: 26rem;
   padding: 2rem;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+
   h2 {
-    margin: 1rem auto;
-    text-align: center;
+    color: #000;
     font-size: 2rem;
     font-weight: 300;
-    color: #000000;
+    margin: 1rem auto;
+    text-align: center;
   }
+
   .form-data {
-    max-width: 25rem;
+    align-items: center;
+    background: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin: 2rem auto 0;
-    background: #ffffff;
+    max-width: 25rem;
   }
+
   .submit {
     height: 3.125rem;
   }
 
   .signin-section,
   .signup-section {
+    align-items: center;
+    color: #000;
+    display: flex;
+    font-size: 1rem;
+    justify-content: center;
     margin: 1rem auto 0;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000000;
-    font-size: 1rem;
+
     a {
-      border: transparent;
       background-color: transparent;
-      margin-left: 0.5rem;
-      text-decoration: none;
+      border: transparent;
       color: #1da1f9;
       font-weight: 600;
+      margin-left: 0.5rem;
+      text-decoration: none;
+
       &:hover {
-        text-decoration: underline;
         color: #0d6efd;
+        text-decoration: underline;
       }
     }
   }
 }
 
 .main {
-  max-width: 1600px;
   margin: 0 auto;
+  max-width: 1600px;
+
   .banner {
-    width: 100%;
-    height: 800px;
     background-image: url('../assets/louis-droege-unsplash.jpg');
     background-size: cover;
+    height: 800px;
+    width: 100%;
   }
 
   .content {
     margin: 1rem auto 0;
     padding: 1rem 4rem;
   }
+
   .header {
-    padding: 0 4rem;
     font-size: 1.75rem;
     font-weight: normal;
     margin: 0;
+    padding: 0 4rem;
   }
 
   .content-header {
@@ -74,16 +81,18 @@
   }
 
   .articles {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
     margin-bottom: 4rem;
     padding: 1rem 0 2rem;
+
     .map-cards {
+      align-items: center;
       display: inline-flex;
       flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
+
       .map-card {
         margin: 1rem;
       }
@@ -94,8 +103,9 @@
 .dashboard {
   display: flex;
   width: 100%;
+
   .dashboard-display {
-    width: 70%;
     margin-top: 5rem;
+    width: 70%;
   }
 }
