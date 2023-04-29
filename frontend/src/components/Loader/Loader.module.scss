@@ -1,4 +1,4 @@
-.loading-container {
+.loadingContainer {
   align-items: center;
   background-color: rgb(0 0 0 / 50%);
   bottom: 0;
@@ -11,7 +11,7 @@
   z-index: 5000;
 }
 
-.loading-spinner {
+.loadingSpinner {
   animation: spin 1.2s linear infinite;
   border: 8px solid;
   border-color: #000 transparent #555;
