@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { MapTileProps } from '../../types.ts/index.js';
 import 'leaflet/dist/leaflet.css';
+import styles from './MapTile.module.scss';
 
 const MapTile = ({ lat, lng, warehouseLocation }: MapTileProps) => {
   const markerIcon = new L.Icon({
@@ -11,7 +12,7 @@ const MapTile = ({ lat, lng, warehouseLocation }: MapTileProps) => {
   });
   return (
     <MapContainer
-      className="map-tile-container"
+      className={styles.mapTileContainer}
       center={[Number(lat), Number(lng)]}
       zoom={13}
       scrollWheelZoom={false}

@@ -7,7 +7,7 @@
   ],
   "plugins": ["stylelint-prettier", "stylelint-order"],
   "rules": {
-    "prettier/prettier": [true, { "singleQuote": true, "tabWidth": 2 }],
+    "prettier/prettier": [true, { "singleQuote": true, "tabWidth": 2, "endOfLine": "auto" }],
     "order/order": ["custom-properties", "declarations"],
     "order/properties-alphabetical-order": true,
     "selector-class-pattern": [

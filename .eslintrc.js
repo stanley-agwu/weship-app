@@ -32,7 +32,9 @@ module.exports = {
         "prettier"
     ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": ["error", {
+            "endOfLine": "auto"
+        }],
         "react/jsx-uses-react": "off",
         "import/extensions": "off",
         "react/react-in-jsx-scope": "off",
