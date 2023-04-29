@@ -1,16 +1,14 @@
 import React from 'react';
-import './styles.scss';
+import './Table.scss';
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { TableDelivery } from '../types.ts';
+import { TableDelivery } from '../../types.ts';
 
 const columnHelper = createColumnHelper<TableDelivery>();
-
-const tab = [];
 
 const columns = [
   columnHelper.accessor((row) => row.customerName, {

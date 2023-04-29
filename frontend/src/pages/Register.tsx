@@ -14,7 +14,7 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { register, reset } from '../features/auth/authSlice';
 import './styles.scss';
 import { getAuthState } from '../features/auth/getters';
-import Spinner from '../components/Spinner';
+import Loader from '../components/Loader/Loader';
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
@@ -75,7 +75,7 @@ const Register = () => {
     }
   };
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="form-group">

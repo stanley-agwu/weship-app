@@ -16,10 +16,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { Link, useNavigate } from 'react-router-dom';
-import './styles.scss';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { reset, logout } from '../features/auth/authSlice';
-import { getAuthState } from '../features/auth/getters';
+import './Header.scss';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { reset, logout } from '../../features/auth/authSlice';
+import { getAuthState } from '../../features/auth/getters';
 
 const pages = [
   { name: 'Home', path: '/home' },

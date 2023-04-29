@@ -1,13 +1,12 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { MapTileProps } from '../types.ts';
-import './styles.scss';
+import { MapTileProps } from '../../types.ts/index.js';
 import 'leaflet/dist/leaflet.css';
 
 const MapTile = ({ lat, lng, warehouseLocation }: MapTileProps) => {
   const markerIcon = new L.Icon({
     /* eslint-disable-next-line global-require */
-    iconUrl: require('../assets/map-marker.png'),
+    iconUrl: require('../../assets/map-marker.png'),
     iconSize: [35, 35],
   });
   return (

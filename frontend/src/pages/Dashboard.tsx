@@ -1,18 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import './styles.scss';
-import Table from '../components/Table';
+import Table from '../components/Table/Table';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getAuthState } from '../features/auth/getters';
-import { Delivery, IDeliveryFormData, LocationProps } from '../types.ts';
-import { createDelivery, reset, getDeliveries } from '../features/delivery/deliverySlice';
+import { Delivery, IDeliveryFormData } from '../types.ts';
+import { createDelivery, getDeliveries } from '../features/delivery/deliverySlice';
 import { getDeliveryState } from '../features/delivery/getters';
-import Spinner from '../components/Spinner';
+import Loader from '../components/Loader/Loader';
+import DeliveryForm from '../components/DeliveryForm/DeliveryForm';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -40,8 +37,7 @@ const Dashboard: React.FC = () => {
   const deliveryDataRef = useRef(initDeliveryData);
 
   const { user } = useAppSelector(getAuthState);
-  const { deliveries, isLoading, isSuccess, isError, errorMessage } =
-    useAppSelector(getDeliveryState);
+  const { deliveries, isLoading, isError, errorMessage } = useAppSelector(getDeliveryState);
 
   const { customerName, warehouseAddress, deliveryDate, deliveryAddress } = formData;
 
@@ -111,7 +107,7 @@ const Dashboard: React.FC = () => {
   }, [dispatch, errorMessage, isError, navigate, user]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   return (
@@ -120,59 +116,7 @@ const Dashboard: React.FC = () => {
         <Table {...deliveries} />
       </section>
       <section>
-        <div className="form-group">
-          <h2>Create Delivery</h2>
-          <form className="form-data" onSubmit={handleSubmit}>
-            <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <InputLabel htmlFor="email">Customer Name</InputLabel>
-              <OutlinedInput
-                id="customerName"
-                type="text"
-                value={customerName}
-                name="customerName"
-                onChange={handleChange}
-                label="customerName"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <InputLabel htmlFor="email">Warehouse Address</InputLabel>
-              <OutlinedInput
-                id="warehouseAddress"
-                type="text"
-                value={warehouseAddress}
-                name="warehouseAddress"
-                onChange={handleChange}
-                label="warehouseAddress"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <OutlinedInput
-                id="deliveryDate"
-                type="date"
-                value={deliveryDate}
-                name="deliveryDate"
-                onChange={handleChange}
-                label="deliveryDate"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <InputLabel htmlFor="email">Delivery Address</InputLabel>
-              <OutlinedInput
-                id="deliveryAddress"
-                type="text"
-                value={deliveryAddress}
-                name="deliveryAddress"
-                onChange={handleChange}
-                label="deliveryAddress"
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-              <Button type="submit" variant="contained" className="submit">
-                Submit delivery
-              </Button>
-            </FormControl>
-          </form>
-        </div>
+        <DeliveryForm onSubmit={handleSubmit} onChange={handleChange} formData={formData} />
       </section>
     </div>
   );

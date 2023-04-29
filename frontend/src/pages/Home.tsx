@@ -1,4 +1,4 @@
-import LocationCard from '../components/LocationCard';
+import LocationCard from '../components/LocationCard/LocationCard';
 import { MESSAGES } from '../constants/messages';
 import { Delivery, LocationProps } from '../types.ts';
 import './styles.scss';

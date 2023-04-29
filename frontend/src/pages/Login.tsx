@@ -14,7 +14,7 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { login, reset } from '../features/auth/authSlice';
 import './styles.scss';
 import { getAuthState } from '../features/auth/getters';
-import Spinner from '../components/Spinner';
+import Loader from '../components/Loader/Loader';
 
 const Login = () => {
   const [formData, setFormData] = useState<ILoginFormData>({
@@ -60,7 +60,7 @@ const Login = () => {
     await dispatch(login(userData));
   };
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="form-group">
