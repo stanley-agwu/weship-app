@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './styles.scss';
-import Table from '../components/Table/Table';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getAuthState } from '../features/auth/getters';
-import { Delivery, IDeliveryFormData } from '../types.ts';
-import { createDelivery, getDeliveries } from '../features/delivery/deliverySlice';
-import { getDeliveryState } from '../features/delivery/getters';
-import Loader from '../components/Loader/Loader';
-import DeliveryForm from '../components/DeliveryForm/DeliveryForm';
+import styles from './Dashboard.module.scss';
+import Table from '../../components/Table/Table';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { getAuthState } from '../../features/auth/getters';
+import { Delivery, IDeliveryFormData } from '../../types.ts';
+import { createDelivery, getDeliveries } from '../../features/delivery/deliverySlice';
+import { getDeliveryState } from '../../features/delivery/getters';
+import Loader from '../../components/Loader/Loader';
+import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
+import { Grid } from '@mui/material';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -111,14 +112,20 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="dashboard">
-      <section className="dashboard-display">
-        <Table {...deliveries} />
-      </section>
-      <section>
+    <Grid
+      className={styles.dashboard}
+      container
+      display="flex"
+      spacing={2}
+      flexDirection={{ xs: 'column', lg: 'row' }}
+    >
+      <Grid item xs={12} lg={4} display="flex" justifyContent="center">
         <DeliveryForm onSubmit={handleSubmit} onChange={handleChange} formData={formData} />
-      </section>
-    </div>
+      </Grid>
+      <Grid item xs={12} lg={8}>
+        <Table {...deliveries} />
+      </Grid>
+    </Grid>
   );
 };
 

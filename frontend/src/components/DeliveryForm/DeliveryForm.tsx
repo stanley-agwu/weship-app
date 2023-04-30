@@ -5,6 +5,8 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import { IDeliveryFormData } from '../../types.ts';
 
+import styles from './DeliveryForm.module.scss';
+
 interface IFormProps {
   onChange: (value: any) => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
@@ -13,10 +15,10 @@ interface IFormProps {
 
 const DeliveryForm: FC<IFormProps> = ({ onChange, onSubmit, formData }: IFormProps) => {
   return (
-    <div className="form-group">
-      <h2>Create Delivery</h2>
-      <form className="form-data" onSubmit={onSubmit}>
-        <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
+    <div className={styles.deliveryForm}>
+      <h2 className={styles.header}>Create Delivery</h2>
+      <form className={styles.formData} onSubmit={onSubmit}>
+        <FormControl className={styles.formControl}>
           <InputLabel htmlFor="email">Customer Name</InputLabel>
           <OutlinedInput
             id="customerName"
@@ -27,7 +29,7 @@ const DeliveryForm: FC<IFormProps> = ({ onChange, onSubmit, formData }: IFormPro
             label="customerName"
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
+        <FormControl className={styles.formControl}>
           <InputLabel htmlFor="email">Warehouse Address</InputLabel>
           <OutlinedInput
             id="warehouseAddress"
@@ -38,7 +40,7 @@ const DeliveryForm: FC<IFormProps> = ({ onChange, onSubmit, formData }: IFormPro
             label="warehouseAddress"
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
+        <FormControl className={styles.formControl}>
           <OutlinedInput
             id="deliveryDate"
             type="date"
@@ -48,7 +50,7 @@ const DeliveryForm: FC<IFormProps> = ({ onChange, onSubmit, formData }: IFormPro
             label="deliveryDate"
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
+        <FormControl className={styles.formControl}>
           <InputLabel htmlFor="email">Delivery Address</InputLabel>
           <OutlinedInput
             id="deliveryAddress"
@@ -59,8 +61,8 @@ const DeliveryForm: FC<IFormProps> = ({ onChange, onSubmit, formData }: IFormPro
             label="deliveryAddress"
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: '22rem' }} variant="outlined">
-          <Button type="submit" variant="contained" className="submit">
+        <FormControl className={styles.formControl}>
+          <Button type="submit" variant="contained" className={styles.button}>
             Submit delivery
           </Button>
         </FormControl>
