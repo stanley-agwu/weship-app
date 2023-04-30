@@ -55,7 +55,7 @@ const Table: FunctionComponent<TableProps> = ({ deliveries }) => {
   });
 
   return (
-    <div className="p-2">
+    <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

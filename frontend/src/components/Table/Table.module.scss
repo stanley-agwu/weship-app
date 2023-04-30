@@ -1,3 +1,9 @@
+.tableWrapper {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 .table {
   border: 1px solid #e3e9ef;
   border-radius: 5px;
@@ -18,15 +24,6 @@
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   justify-items: start;
   overflow-wrap: break-word;
-
-  td {
-    height: 48px;
-    padding: 8px;
-  }
-
-  i {
-    font-style: normal;
-  }
 }
 
 .headerRow {
@@ -36,5 +33,20 @@
     height: 48px;
     padding: 8px;
     text-align: center;
+  }
+}
+
+.bodyRow {
+  &:hover {
+    background: #e3e9ef;
+  }
+
+  td {
+    height: 48px;
+    padding: 8px;
+  }
+
+  i {
+    font-style: normal;
   }
 }

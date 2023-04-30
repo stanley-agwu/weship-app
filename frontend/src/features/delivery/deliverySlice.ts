@@ -8,6 +8,7 @@ import {
   DeliveryArray,
 } from '../../types.ts';
 import deliveryService from './deliveryService';
+import moment from 'moment';
 
 const initialState: IDeliveryState = {
   deliveries: { deliveries: [] },
@@ -85,10 +86,16 @@ export const deliverySlice = createSlice({
       .addCase(getDeliveries.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getDeliveries.fulfilled, (state, action) => {
+      .addCase(getDeliveries.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.deliveries = action.payload;
+        const deliveries: Delivery[] = payload.deliveries.map((delivery) => ({
+          ...delivery,
+          createdAt: delivery.createdAt ? moment.utc(delivery.createdAt).format('DD/MM/YYYY HH:mm:ss'): delivery.createdAt,
+          updatedAt: delivery.updatedAt ? moment.utc(delivery.updatedAt).format('DD/MM/YYYY HH:mm:ss'): delivery.updatedAt,
+          deliveryDate: delivery.deliveryDate ? moment(delivery.deliveryDate).format('DD/MM/YYYY'): delivery.deliveryDate,
+        }))
+        state.deliveries = { deliveries};
       })
       .addCase(getDeliveries.rejected, (state, action) => {
         state.isSuccess = false;
