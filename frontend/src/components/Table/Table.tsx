@@ -59,7 +59,7 @@ const Table: FunctionComponent<TableProps> = ({ deliveries }) => {
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr className={styles.bodyRow} key={headerGroup.id}>
+            <tr className={styles.headerRow} key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
                   {header.isPlaceholder

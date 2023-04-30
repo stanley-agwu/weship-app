@@ -117,12 +117,12 @@ const Dashboard: React.FC = () => {
       container
       display="flex"
       spacing={2}
-      flexDirection={{ xs: 'column', lg: 'row' }}
+      flexDirection={{ xs: 'column', xl: 'row' }}
     >
-      <Grid item xs={12} lg={4} display="flex" justifyContent="center">
+      <Grid item xs={12} xl={5} display="flex" justifyContent="center">
         <DeliveryForm onSubmit={handleSubmit} onChange={handleChange} formData={formData} />
       </Grid>
-      <Grid item xs={12} lg={8}>
+      <Grid item xs={12} xl={7}>
         <Table {...deliveries} />
       </Grid>
     </Grid>
