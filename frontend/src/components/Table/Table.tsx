@@ -1,5 +1,5 @@
-import React from 'react';
-import './Table.scss';
+import { FunctionComponent } from 'react';
+import styles from './Table.module.scss';
 import {
   createColumnHelper,
   flexRender,
@@ -47,22 +47,19 @@ export type TableProps = {
   deliveries: TableDelivery[];
 };
 
-const Table = ({ deliveries }: TableProps) => {
-  const [data, setData] = React.useState(() => [...deliveries]);
-  const rerender = React.useReducer(() => ({}), {})[1];
-
+const Table: FunctionComponent<TableProps> = ({ deliveries }) => {
   const table = useReactTable({
-    data,
+    data: deliveries,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
     <div className="p-2">
-      <table>
+      <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr className={styles.bodyRow} key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
                   {header.isPlaceholder
@@ -75,26 +72,13 @@ const Table = ({ deliveries }: TableProps) => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr className={styles.bodyRow} key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
               ))}
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(header.column.columnDef.footer, header.getContext())}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
     </div>
   );

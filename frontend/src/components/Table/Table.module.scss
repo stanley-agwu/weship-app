@@ -1,0 +1,22 @@
+.table {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 24px;
+  width: 100%;
+}
+
+.headerRow,
+.bodyRow {
+  align-items: center;
+  display: grid;
+  font-style: normal;
+  grid-column-gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  justify-items: start;
+  overflow-wrap: break-word;
+
+  i {
+    font-style: normal;
+  }
+}
