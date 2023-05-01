@@ -44,8 +44,15 @@
   }
 
   td {
+    align-items: center;
+    display: flex;
     height: 48px;
+    justify-content: center;
     padding: 8px;
+  }
+
+  td:last-child {
+    justify-self: center;
   }
 
   i {

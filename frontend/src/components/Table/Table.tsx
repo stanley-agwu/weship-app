@@ -7,6 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { TableDelivery } from '../../types.ts';
+import More from './More/More';
 
 const columnHelper = createColumnHelper<TableDelivery>();
 
@@ -41,6 +42,11 @@ const columns = [
     cell: (info) => <i>{info.getValue()}</i>,
     header: () => <span>Date Updated</span>,
   }),
+  columnHelper.accessor(() => 'update', {
+    id: 'update',
+    cell: () => <More />,
+    header: () => '',
+  }),
 ];
 
 export type TableProps = {
@@ -54,17 +60,19 @@ const Table: FunctionComponent<TableProps> = ({ deliveries }) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  console.log('data: ', deliveries);
+
   return (
     <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr className={styles.headerRow} key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
+              {headerGroup.headers?.map((header) => (
+                <th key={header?.id}>
+                  {header?.isPlaceholder
                     ? null
-                    : flexRender(header.column.columnDef.header, header.getContext())}
+                    : flexRender(header.column.columnDef?.header, header.getContext())}
                 </th>
               ))}
             </tr>
