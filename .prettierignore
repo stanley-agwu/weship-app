@@ -4,8 +4,3 @@ build/
 coverage/
 dist/
 .env
-frontend/node_modules/
-frontend/build/
-frontend/coverage/
-frontend/dist/
-frontend/.env

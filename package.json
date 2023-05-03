@@ -13,6 +13,7 @@
     "lint:fix": "eslint --fix .",
     "lint:staged": "npx lint-staged .",
     "format": "npx prettier . --check",
+    "format:fix": "npx prettier --write .",
     "prepare": "husky install",
     "stylelint": "npx stylelint **/*.scss",
     "stylelint:fix": "npx stylelint **/*.scss --fix"

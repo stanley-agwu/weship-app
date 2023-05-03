@@ -52,6 +52,7 @@ export type Delivery = {
 export type DeliveryArray = {
   deliveries: Delivery[] | [];
 };
+
 export interface IDeliveryState {
   deliveries: DeliveryArray;
   isSuccess: boolean;
@@ -78,6 +79,7 @@ export type ErrorType = {
     };
   };
 };
+
 export interface IRootState {
   auth: IAuthState;
   delivery: IDeliveryState;

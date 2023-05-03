@@ -91,11 +91,17 @@ export const deliverySlice = createSlice({
         state.isSuccess = true;
         const deliveries: Delivery[] = payload.deliveries.map((delivery) => ({
           ...delivery,
-          createdAt: delivery.createdAt ? moment.utc(delivery.createdAt).format('DD/MM/YYYY HH:mm:ss'): delivery.createdAt,
-          updatedAt: delivery.updatedAt ? moment.utc(delivery.updatedAt).format('DD/MM/YYYY HH:mm:ss'): delivery.updatedAt,
-          deliveryDate: delivery.deliveryDate ? moment(delivery.deliveryDate).format('DD/MM/YYYY'): delivery.deliveryDate,
-        }))
-        state.deliveries = { deliveries};
+          createdAt: delivery.createdAt
+            ? moment.utc(delivery.createdAt).format('DD/MM/YYYY HH:mm:ss')
+            : delivery.createdAt,
+          updatedAt: delivery.updatedAt
+            ? moment.utc(delivery.updatedAt).format('DD/MM/YYYY HH:mm:ss')
+            : delivery.updatedAt,
+          deliveryDate: delivery.deliveryDate
+            ? moment(delivery.deliveryDate).format('DD/MM/YYYY')
+            : delivery.deliveryDate,
+        }));
+        state.deliveries = { deliveries };
       })
       .addCase(getDeliveries.rejected, (state, action) => {
         state.isSuccess = false;
