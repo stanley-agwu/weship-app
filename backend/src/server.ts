@@ -1,10 +1,11 @@
-import express, { Request, Response, NextFunction } from 'express';
-import * as dotenv from 'dotenv';
 import colors from 'colors';
+import * as dotenv from 'dotenv';
+import express, { NextFunction, Request, Response } from 'express';
+
 import connectDB from './db/db';
+import { errorHandler } from './middlewares/errorHandler';
 import deliveryRoutes from './routes/delivery';
 import userRoutes from './routes/user';
-import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 dotenv.config({ path: './config/config.env' });

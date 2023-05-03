@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import mongoose from 'mongoose';
 // eslint-disable-next-line import/no-unresolved
 import { Delivery as IDelivery, UIUser } from 'src/types';
+
 import Delivery from '../models/Delivery';
 
 // get all deliveries

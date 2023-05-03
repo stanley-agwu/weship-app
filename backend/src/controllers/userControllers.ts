@@ -1,8 +1,9 @@
-import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+
 import User from '../models/User';
-import { User as UserType, UIUser, IRegisterData, ILoginData } from '../types';
+import { ILoginData, IRegisterData, UIUser, User as UserType } from '../types';
 
 // generate JWT token function
 const createToken = (_id: string) => {

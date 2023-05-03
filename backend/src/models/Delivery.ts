@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { Delivery } from '../types';
 
 const DeliverySchema = new mongoose.Schema<Delivery>(

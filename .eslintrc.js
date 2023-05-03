@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['utility'],
+  extends: ['utility', 'utility/import'],
   parserOptions: {
     project: './backend/tsconfig.json'
   },
