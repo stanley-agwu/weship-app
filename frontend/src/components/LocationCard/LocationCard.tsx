@@ -1,8 +1,10 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+
 import { LocationProps } from '../../types.ts/index.js';
 import MapTile from '../MapTile/MapTile';
+
 import styles from './LocationCard.module.scss';
 
 const LocationCard = ({ deliveryData }: LocationProps) => {

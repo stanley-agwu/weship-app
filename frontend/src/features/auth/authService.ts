@@ -1,6 +1,7 @@
 import axios from 'axios';
+
 import { ENDPOINTS } from '../../constants';
-import { IRegisterUser, ILoginUser, ILoggedInUser } from '../../types.ts';
+import { ILoggedInUser, ILoginUser, IRegisterUser } from '../../types.ts';
 
 // register user
 const register = async (userData: IRegisterUser) => {

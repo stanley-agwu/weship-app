@@ -1,6 +1,8 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
+
 import { MapTileProps } from '../../types.ts/index.js';
+
 import 'leaflet/dist/leaflet.css';
 import styles from './MapTile.module.scss';
 

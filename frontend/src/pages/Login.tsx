@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { ILoginFormData } from '../types.ts';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { login, reset } from '../features/auth/authSlice';
-import './styles.scss';
-import { getAuthState } from '../features/auth/getters';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import Loader from '../components/Loader/Loader';
+import { login, reset } from '../features/auth/authSlice';
+import { getAuthState } from '../features/auth/getters';
+import { ILoginFormData } from '../types.ts';
+
+import './styles.scss';
 
 const Login = () => {
   const [formData, setFormData] = useState<ILoginFormData>({

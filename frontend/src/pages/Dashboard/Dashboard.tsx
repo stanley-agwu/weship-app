@@ -1,16 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import styles from './Dashboard.module.scss';
+
+import { Grid } from '@mui/material';
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
+import Loader from '../../components/Loader/Loader';
 import Table from '../../components/Table/Table';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { getAuthState } from '../../features/auth/getters';
-import { Delivery, IDeliveryFormData } from '../../types.ts';
 import { createDelivery, getDeliveries } from '../../features/delivery/deliverySlice';
 import { getDeliveryState } from '../../features/delivery/getters';
-import Loader from '../../components/Loader/Loader';
-import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
-import { Grid } from '@mui/material';
+import { Delivery, IDeliveryFormData } from '../../types.ts';
+
+import styles from './Dashboard.module.scss';
 
 const initialState: IDeliveryFormData = {
   customerName: '',
@@ -50,7 +53,7 @@ const Dashboard: React.FC = () => {
       deliveryDataRef.current.warehouseAddressLat = warehouseResults[0]?.lat;
       deliveryDataRef.current.warehouseAddressLng = warehouseResults[0]?.lon;
     } catch (error) {
-      console.error(error);
+      throw new Error(error as string);
     }
   };
   const fetchDeliveryAddressCoords = async () => {
@@ -59,7 +62,7 @@ const Dashboard: React.FC = () => {
       deliveryDataRef.current.deliveryAddressLat = deliveryResults[0]?.lat;
       deliveryDataRef.current.deliveryAddressLng = deliveryResults[0]?.lon;
     } catch (error) {
-      console.error(error);
+      throw new Error(error as string);
     }
   };
 

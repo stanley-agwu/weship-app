@@ -1,13 +1,17 @@
 import { FunctionComponent } from 'react';
-import styles from './Table.module.scss';
+
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+
 import { TableDelivery } from '../../types.ts';
+
 import More from './More/More';
+
+import styles from './Table.module.scss';
 
 const columnHelper = createColumnHelper<TableDelivery>();
 
@@ -59,8 +63,6 @@ const Table: FunctionComponent<TableProps> = ({ deliveries }) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  console.log('data: ', deliveries);
 
   return (
     <div className={styles.tableWrapper}>

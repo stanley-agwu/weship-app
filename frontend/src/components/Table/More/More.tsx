@@ -1,7 +1,10 @@
 import { Fragment, FunctionComponent, useRef, useState } from 'react';
-import { ReactComponent as MoreIcon } from '../../../assets/more.svg';
-import styles from './More.module.scss';
+
 import Popover from '@mui/material/Popover';
+
+import { ReactComponent as MoreIcon } from '../../../assets/more.svg';
+
+import styles from './More.module.scss';
 
 const More: FunctionComponent = (): JSX.Element => {
   const anchorRef = useRef(null);

@@ -1,5 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ErrorType, LoggedInUser, IRegisterUser, ILoginUser, IAuthState } from '../../types.ts';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { ErrorType, IAuthState, ILoginUser, IRegisterUser, LoggedInUser } from '../../types.ts';
+
 import authService from './authService';
 
 /* @typescript-eslint-disable no-unsafe-assignment */

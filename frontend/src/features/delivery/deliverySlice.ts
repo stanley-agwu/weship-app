@@ -1,14 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import moment from 'moment';
+
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import {
+  Delivery,
+  DeliveryArray,
   ErrorType,
   IDeliveryState,
-  Delivery,
-  State,
   LoggedInUser,
-  DeliveryArray,
+  State,
 } from '../../types.ts';
+
 import deliveryService from './deliveryService';
-import moment from 'moment';
 
 const initialState: IDeliveryState = {
   deliveries: { deliveries: [] },
