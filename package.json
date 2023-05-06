@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node backend/dist/server",
     "server": "nodemon backend/src/server",
-    "commit": "npm run lint:staged && cz",
+    "commit": "cz",
     "build": "tsc -p .",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -61,6 +61,37 @@
   },
   "config": {
     "commitizen": {
+      "scopeList": [
+        "frontend",
+        "backend"
+      ],
+      "disableBreakingChanges": true,
+      "types": {
+        "feat": {
+          "description": "A new feature or change in functionality",
+          "title": "Features"
+        },
+        "fix": {
+          "description": "A bug fix",
+          "title": "BugFixes"
+        },
+        "refactor": {
+          "description": "A code change that neither fixes a bug nor adds a new feature",
+          "title": "Refactors"
+        },
+        "chore": {
+          "description": "Changes to the build process or auxiliary tools or libraries such as documentation",
+          "title": "Chores"
+        },
+        "test": {
+          "description": "Adding missing tests",
+          "title": "Tests"
+        },
+        "revert": {
+          "description": "A code change to revert a previous commit",
+          "title": "Reverts"
+        }
+      },
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
