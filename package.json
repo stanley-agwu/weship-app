@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node backend/dist/server",
     "server": "nodemon backend/src/server",
-    "commit": "cz",
+    "commit": "npm run lint:staged && cz",
     "build": "tsc -p .",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -39,6 +39,8 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@types/leaflet": "^1.9.0",
     "commitizen": "^4.3.0",
     "concurrently": "^8.0.0",
