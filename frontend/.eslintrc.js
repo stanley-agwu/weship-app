@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['utility', 'utility/import'],
   parserOptions: {
-    project: './frontend/tsconfig.json'
+    project: './tsconfig.json'
   },
   rules: {
     'no-underscore-dangle': 1,
